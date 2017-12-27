@@ -1,0 +1,63 @@
+.cuarto {
+  background-color: #F7F7F9;
+  text-align: center;
+  vertical-align: bottom;
+  border: 2px solid #D0D0D0;
+  padding: 3px;
+  margin: 2px;
+  float: left;
+  display: inherit;
+  overflow: hidden;
+  font-size:9px;
+  height: 130px;
+  width: 175px;
+  text-align: left;
+}
+
+.cuarto:hover{
+   border:3px solid rgb(6, 2, 22);
+}
+
+.productoprecio{
+  background-color: rgb(161, 102, 135);  /* #03A991;*/
+  font-size: 12px;
+  color: #FFFFFF;
+  /*font-weight: bold;*/
+  height:  50px;
+  padding: 5px 5px 5px 5px
+}
+
+.productonombre{
+  font-size: 12px;
+  width:  300px;
+  /*font-weight: bold;*/
+  font-family: "courier", Georgia, Serif;
+  text-align: left;
+}
+
+.empresa {
+  background-image: url(../images/mn_empresa.png) !important;
+}
+.mantenimiento {
+  background-image: url(../images/mn_mante.png) !important;
+}
+.cliente {
+  background-image: url(../images/mn_cliente.png) !important;
+}
+.pedido {
+  background-image: url(../images/mn_pedido.png) !important; 
+}
+.producto {
+  background-image: url(../images/mn_producto.png) !important; 
+}
+.venta_facturar {
+  background-image: url(../images/mn_ventafacturar.png) !important; 
+}
+.punto_venta {
+  background-image: url(../images/mn_puntoventa.png) !important; 
+}
+
+
+
+
+

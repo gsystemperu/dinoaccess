@@ -1,0 +1,11 @@
+{
+  "name": "dinoaccess",
+  "authors": [
+    "Eddy Erazo Zamudio <eerazozamudio@gmail.com>"
+  ],
+  "description": "Aplicacion web para la empresa mega fill peru para uso de logistica, ventas contabilidad",
+  "main": "",
+  "license": "MIT",
+  "homepage": "www.gsystem.pe"
+  
+}
