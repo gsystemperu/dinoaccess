@@ -3,9 +3,9 @@ Ext.define('dinoaccess.store.tree.ControlVentas', {
     root: {
         expanded: true,
         children: [
-             { text: 'Clientes', leaf: true, itemId: "wContenedorCliente", titulo :'Clientes',glyph: 'xf01c'},
-             { text: 'Proformas', leaf: true, itemId: "wContenedorCotizaciones", titulo :'Proformas' ,glyph: 'xf01c' },
-             { text: 'Productos', leaf: true, itemId: "wContenedorProducto", titulo :'Productos',glyph: 'xf01c'},
+             { text: 'Clientes', leaf: true, itemId: "wContenedorCliente", titulo :'Clientes',glyph: 'xf022'},
+             { text: 'Proformas', leaf: true, itemId: "wContenedorCotizaciones", titulo :'Proformas' ,glyph: 'xf022' },
+             { text: 'Productos', leaf: true, itemId: "wContenedorProducto", titulo :'Productos',glyph: 'xf022'},
              {
                text: 'Facturación',
                expanded: true,
@@ -17,7 +17,7 @@ Ext.define('dinoaccess.store.tree.ControlVentas', {
                    leaf: true,
                    itemId: "wContenedorCotizacionesFacturar",
                    titulo: "Proforma/Facturar",
-                   glyph: 'xf01c'
+                   glyph: 'xf022'
 
                  },
                  {
@@ -25,7 +25,7 @@ Ext.define('dinoaccess.store.tree.ControlVentas', {
                   leaf: true,
                   itemId: "wRegistrarFacturaBoleta",
                   titulo: 'Factura / Bolera',
-                  glyph: 'xf01c'
+                  glyph: 'xf022'
 
                 },
               

@@ -8,20 +8,20 @@ Ext.define('dinoaccess.store.tree.ControlAlmacen', {
         leaf: true,
         itemId: "wRegAlmacen",
         titulo: "Registro Almacenes",
-        glyph: 'xf01c'
+        glyph: 'xf16b'
       }, {
         text: 'Productos',
         leaf: true,
         itemId: "wContenedorProducto",
         titulo: "Registro Productos",
-        glyph: 'xf01c'
+        glyph: 'xf16b'
       },
       {
         text: 'Proveedores',
         leaf: true,
         itemId: "wRegProveedores",
         titulo: "Proveedores",
-        glyph: 'xf01c'
+        glyph: 'xf16b'
       },
       {
         text: 'Ingreso Mercaderia',
@@ -32,14 +32,14 @@ Ext.define('dinoaccess.store.tree.ControlAlmacen', {
             leaf: true,
             itemId: "wContenedorOrdenCompra",
             titulo: "Orden Compra",
-            glyph: 'xf01c'
+            glyph: 'xf16b'
           },
           {
             text: 'Guias Entrada',
             leaf: true,
             itemId: "wContenedorGuias",
             titulo: "Guia Entrada",
-            glyph: 'xf01c'
+            glyph: 'xf16b'
           }
         ]
       },

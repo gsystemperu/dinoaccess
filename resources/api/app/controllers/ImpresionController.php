@@ -442,7 +442,7 @@ class ImpresionController extends Controller
             $total_cotizacion = 0.00;
       
             // ========== FPDF ==========  //
-            $pdf = new exFPDF('P','mm','A4');
+            $pdf = new fpdf('P','mm','A4');
       
             $wg = 100 ;//Ancho total
             $in = 5; //Interlineado
@@ -488,41 +488,26 @@ class ImpresionController extends Controller
       
             //-----------------------------------
             //----------- LISTA PRODUCTOS DETALLE
-            $table=new easyTable($pdf, '{105, 20, 20, 22, 22}', 'align:L; border:{B};');
-               $table->rowStyle('font-style:B;');
-               $table->easyCell(pinta('Descripción'), 'valign:B;border:{B};');
-               $table->easyCell(pinta(''),'align:C;valign:B;border:{B};');
-               $table->easyCell(pinta('Cantidad'), 'align:R;valign:B;border:{B};');
-               $table->easyCell(pinta('Precio Unitario'),'align:R;valign:B;border:{B};');
-               $table->easyCell(pinta('Precio'),'align:R;valign:B');
-               $table->printRow();
-      
+            $pdf->Cell(123,5,pinta('Descripción'),1,0,'C');
+            $pdf->Cell(20,5,pinta('Cantidad'),1,0,'C');
+            $pdf->Cell(22,5,pinta('Precio Unitario'),1,0,'C');
+            $pdf->Cell(22,5,pinta('Precio'),1,1,'C');
+
                foreach($dataDetalle as $row){
-                $table->rowStyle('border-color:#ADADAD;');
-                $table->easyCell(pinta($row->descripcion), 'align:L;');
-                $table->easyCell(pinta(''), 'align:R');
-                $table->easyCell(pinta($row->cantidad), 'align:R');
-                $table->easyCell(pinta(number_format($row->precio, 2, ',','')), 'align:R');
-                $table->easyCell(pinta(number_format($row->total, 2, ',','')), 'align:R');
+                $pdf->Cell(123,5,pinta($row->descripcion),1,0,'L');
+                $pdf->Cell(20,5,pinta($row->cantidad),1,0,'C');
+                $pdf->Cell(22,5,pinta(number_format($row->precio, 2, '.',' ')),1,0,'R');
+                $pdf->Cell(22,5,pinta(number_format($row->total, 2, '.',' ')),1,1,'R');
                 $total_sin_imp += $row->total;
-                $table->printRow();
                }
       
-            $table->endTable(4);
-            //----------- FIN LISTA PRODUCTOS DETALLE
-            //-----------------------------------
+       
       
-      
-            $pdf->Ln(4);
             $total_cotizacion = $total_sin_imp + $impuestos;
-            $table=new easyTable($pdf, '{22, 25}', 'align:R;border:{T};');
-              $table->rowStyle('min-height:7;font-style:B;');
-              $table->easyCell(pinta('Total '), 'align:L;valign:B;');
-              $table->easyCell(' S/.'.number_format($total_cotizacion, 2, ',',''), 'align:R;valign:B;');
-              $table->printRow();
-            $table->endTable(4);
-      
-            $pdf->Ln(10);
+            $pdf->Ln(1);
+            $pdf->Cell(165,5,pinta('TOTAL'),0,0,'R');
+            $pdf->Cell(22,5,pinta(number_format($total_cotizacion, 2, '.',' ')),'T',1,'R');
+         
       
           //- Observaciones
           $pdf->SetFont($font,'B',$tam);
@@ -543,11 +528,8 @@ class ImpresionController extends Controller
             $request    = new Phalcon\Http\Request();
             $idfactura = array($request->get("id"));
             $dataEmpresa =  json_decode(Empresa::listar())->data[0];
-            //print_r($dataEmpresa);die();
-            $dataFacturacion =  json_decode(facturacion::datosFacturacionCliente($idfactura))->data[0];
-            //print_r($dataFacturacion);die();
-            $dataDetalle =  json_decode(facturacion::detalleFacturacion($idfactura))->data;
-            //print_r($dataDetalle);die();
+            $dataFacturacion =  json_decode(Facturacion::datosFacturacionCliente($idfactura))->data[0];
+            $dataDetalle =  json_decode(Facturacion::detalleFacturacion($idfactura))->data;
       
             $pdf = new fpdf('P');
             $borde = 0;

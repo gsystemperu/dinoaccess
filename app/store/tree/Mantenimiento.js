@@ -8,7 +8,7 @@ Ext.define('dinoaccess.store.tree.Mantenimiento', {
               leaf: true,
               itemId: "wRegMaestros",
               titulo: "MAESTROS",
-              iconCls : 'mantenimiento'
+              glyph: 'xf013'
             },
         ]
     }

@@ -282,7 +282,10 @@ class CotizacionController extends Controller
               $vCodigo  = $request->get('vCodigo');
 
               $data     = array($vDesde,$vHasta,$vPersona);
-              if(sizeof($data)){
+              if($vDesde  !='' ||
+                 $vHasta  !='' ||
+                 $vPersona !='' ||
+                 $vCodigo !='' ){
                 if($vCodigo!='')
                 {
                   $data =array($vCodigo);
@@ -291,7 +294,7 @@ class CotizacionController extends Controller
                   $jsonData  = Cotizacion::cotizacionesListar($data);
                 }
               }else {
-                  $data =array();
+                  $data ='';
                   $jsonData  = Cotizacion::cotizacionesListar($data);
               }
               $response->setContentType('application/json', 'UTF-8');

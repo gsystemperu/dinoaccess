@@ -78,7 +78,6 @@ Ext.define('dinoaccess.Application', {
        //$('#splashscreen').hide();
        Ext.util.Format.decimalSeparator = '.';
        Ext.util.Format.thousandSeparator = ' ';
-       //Ext.Msg.alert("Test2");
        Ext.create('wMain');
     }
 });

@@ -145,13 +145,18 @@ class Cotizacion extends \Phalcon\Mvc\Model
               $sql     =  $obj->executarJson('ventas','sp_proveedor_listar',$param);
               return $sql;
     }
-
+    
     public static function cotizacionesListar($data){ 
           $helper     = new FuncionesHelpers();
           $obj        = new SQLHelpers();
-          $param    = $helper->esCadenaNulo($data[0]) .",".
-          $helper->esCadenaNulo($data[1]) .",".
-          $helper->esCadenaNulo($data[2]);
+          if($data !=''){
+                  $param    = $helper->esCadenaNulo($data[0]) .",".
+                  $helper->esCadenaNulo($data[1]) .",".
+                  $helper->esCadenaNulo($data[2]);
+          }else{
+                  $param = '';
+          }
+
           $sql     =  $obj->executarCadenaJsonCondicionado('ventas','sp_cotizaciones_listar',$param);
           return $sql;
     }
