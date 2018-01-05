@@ -182,5 +182,56 @@ class Producto extends \Phalcon\Mvc\Model
         $sql     = $obj->executarJson('inventario','sp_producto_copiar',$param);
         return $sql;
       }
+    
+      /**
+     * [listarInventario]
+     * @param  [type] $data nombre el producto a filtrar
+     * @return [type] Json      [description]
+     */
+    public static function listarInventario($data){
+        $obj     = new SQLHelpers();
+        $param   = $data;
+        $sql     = $obj->executarJson('inventario','SP_PRODUCTO_REGISTRO_INVENTARIO',$param);
+        return $sql;
+      }
+
+     /**
+     * [inventarioRegistros]
+     * @param  [type] $data numero el mes para el filtro de los registros de inventario.
+     * @return [type] Json      [description]
+     */
+    public static function inventarioRegistros($data){
+        $obj     = new SQLHelpers();
+        $param   = $data;
+        $sql     = $obj->executarJson('inventario','sp_inventario_registros',$param);
+        return $sql;
+      }
+
+       /**
+     * [inventarioAgregar]
+     * @param  [type] $data de los campos de la tabla inventario incluye un json para insertar el detalle
+     * @return [type] Json      [description]
+     */
+    public static function inventarioAgregar($data){
+        $obj     = new SQLHelpers();
+        $param   = $data;
+        $sql     = $obj->executar('inventario','sp_inventario_agregar',$param);
+        return $sql;
+      }
+
+
+       /**
+     * [inventarioAgregar]
+     * @param  [type] $data de los campos de la tabla inventario incluye un json para insertar el detalle
+     * @return [type] Json      [description]
+     */
+    public static function inventarioAnular($data){
+        $obj     = new SQLHelpers();
+        $param   = $data;
+        $sql     = $obj->executar('inventario','sp_inventario_anular',$param);
+        return $sql;
+      }
+
+      
 
 }

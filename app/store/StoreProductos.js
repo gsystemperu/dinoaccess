@@ -77,3 +77,51 @@ Ext.define('dinoaccess.store.ProductoExistencias', {
         }
     }
 });
+
+/*
+@DataSet :
+==============================================================
+*/
+Ext.define('dinoaccess.store.ProductoInventarioLista', {
+    extend: 'Ext.data.Store',
+    requiere:['dinoaccess.model.DataModels'],
+    model   :'dinoaccess.model.ProductoInventario',
+    autoLoad: false,
+    remoteSort: true,
+    autoSync  : false,
+    proxy: {
+        type: 'ajax',
+        api: {read: 'resources/api/producto_inventario_listar'},
+        reader: {
+            type: 'json',
+            rootProperty: 'data',
+        }
+    }
+});
+
+/*
+@DataSet :
+@Descripcion : 
+DataSet para los registros de los inventarios
+==============================================================
+*/
+Ext.define('dinoaccess.store.InventarioRegistros', {
+    extend  : 'Ext.data.Store',
+    requiere:['dinoaccess.model.DataModels'],
+    model   :'dinoaccess.model.InventarioRegistro',
+    autoLoad: true,
+    remoteSort: true,
+    autoSync  : false,
+    proxy: {
+        type: 'ajax',
+        api: {read: 'resources/api/producto_inventario_registros'},
+        reader: {
+            type: 'json',
+            rootProperty: 'data',
+        }
+    }
+});
+
+
+
+

@@ -43,6 +43,20 @@ Ext.define('dinoaccess.store.tree.ControlAlmacen', {
           }
         ]
       },
+      {
+        text: 'Inventario',
+        expanded: true,
+         children: [
+          {
+            text: 'Ajuste inventario',
+            leaf: true,
+            itemId: "wContenedorInventario",
+            titulo: "Registro Inventario",
+            glyph: 'xf16b'
+          }
+          
+        ]
+      },
   
     ]
 

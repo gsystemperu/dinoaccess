@@ -34,6 +34,11 @@ Ext.define('dinoaccess.util.Rutas', {
         productoBuscarCodigoBarras: 'resources/api/producto_buscar_codigobarras',
         productoBuscarProveedores: 'resources/api/producto_buscar_proveedores',
 
+        inventarioAgregar: 'resources/api/producto_inventario_agregar',
+        inventarioAnular: 'resources/api/producto_inventario_anular',
+        inventarioImprimirStock: 'resources/api/producto_inventario_pdf',
+
+
         //@Acciones => Abastecimiento
         abastecimientoGuardar: 'resources/api/abastecimiento_guardar',
 

@@ -5,7 +5,7 @@ defined('APP_PATH') || define('APP_PATH', realpath('.'));
 return new \Phalcon\Config(array(
     'database' => array(
         'adapter'     => 'PostgreSQL',
-        'host'        => '127.0.0.1',
+        'host'        => '45.55.0.249',
         'username'    => 'postgres',
         'password'    => '64y4.634##',
         'dbname'      => 'dinosystem',

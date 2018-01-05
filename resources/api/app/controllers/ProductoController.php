@@ -311,5 +311,69 @@ class ProductoController extends Controller
       }
  }
 
+ public function listadoinventarioAction(){
+  $request        = new Phalcon\Http\Request();
+  $response       = new \Phalcon\Http\Response();
+  if($request->isGet() ==true)
+  {
+       $data = array($request->get('nombre'));
+       $jsonData = Producto::listarInventario($data);
+       $response->setContentType('application/json', 'UTF-8');
+       $response->setContent($jsonData);
+       return $response;
+  }
+
+}
+public function inventarioregistrosAction(){
+$request        = new Phalcon\Http\Request();
+$response       = new \Phalcon\Http\Response();
+if($request->isGet() ==true)
+{
+   $data = array($request->get('mes'));
+   $jsonData = Producto::inventarioRegistros($data);
+   $response->setContentType('application/json', 'UTF-8');
+   $response->setContent($jsonData);
+   return $response;
+}
+}
+
+public function inventarioagregarAction(){
+  $request        = new Phalcon\Http\Request();
+  $response       = new \Phalcon\Http\Response();
+  if($request->isPost() ==true)
+  {
+       $data = array(
+           $request->getPost('id'),
+           $request->getPost('referencia'),
+           $request->getPost('jsondetalle'),
+           'EERAZO'
+           //$request->getPost('usuario')
+       );
+       $jsonData = Producto::inventarioAgregar($data);
+       $response->setContentType('application/json', 'UTF-8');
+       $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));
+       return $response;
+  }
+}
+
+public function inventarioanularAction(){
+  $request        = new Phalcon\Http\Request();
+  $response       = new \Phalcon\Http\Response();
+  if($request->isPost() ==true)
+  {
+       $data = array(
+           $request->getPost('id'),
+           'EERAZO'
+           //$request->getPost('usuario')
+       );
+       $jsonData = Producto::inventarioAnular($data);
+       $response->setContentType('application/json', 'UTF-8');
+       $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));
+       return $response;
+  }
+}
+
+
+
 
 }

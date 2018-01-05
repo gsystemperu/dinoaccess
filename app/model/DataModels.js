@@ -599,3 +599,39 @@ Ext.define('dinoaccess.model.GuiaRemisionDetalle', {
         {name :'saldo',type:'float'}
     ]
 });
+
+// @Model : Lista de productos para el inventario
+//
+Ext.define('dinoaccess.model.ProductoInventario', {
+    extend: 'Ext.data.Model',
+    fields: [
+        {name: 'codigoproducto',type: 'string'},
+        {name :'id',type:'integer'},
+        {name :'nombre',type:'string'},
+        {name :'stockfisico',type:'integer'},
+        {name :'inventario',type:'integer'},
+        {name :'inventarioseries',type:'integer'},
+        {name :'diferencia',type:'integer'},
+        {name :'chk',type:'boolean'},
+        
+    ]
+});
+
+// @Model : Listado de Registros de inventario
+//
+Ext.define('dinoaccess.model.InventarioRegistro', {
+    extend: 'Ext.data.Model',
+    fields: [
+        {name: 'id',type: 'string'},
+        {name :'referencia',type:'string'},
+        {name :'fechainventario',type:'date'},
+        {name :'idestado',type:'integer'},
+        {name :'estado',type:'string'},
+        {name :'stockfisico',type:'integer'},
+        {name :'inventario',type:'integer'},
+        {name :'diferencia',type:'integer'},
+        {name :'detalle',type:'string'}
+        
+    ]
+});
+

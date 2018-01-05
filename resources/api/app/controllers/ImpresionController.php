@@ -434,7 +434,7 @@ class ImpresionController extends Controller
             //print_r($dataDetalle);die();
             $dataPersona = json_decode(Persona::Buscar($dataCotizacion->idper))->data[0];;
             //print_r($dataPersona);die();
-      
+            
       
       
             $total_sin_imp = 0.00;
@@ -505,8 +505,18 @@ class ImpresionController extends Controller
       
             $total_cotizacion = $total_sin_imp + $impuestos;
             $pdf->Ln(1);
-            $pdf->Cell(165,5,pinta('TOTAL'),0,0,'R');
-            $pdf->Cell(22,5,pinta(number_format($total_cotizacion, 2, '.',' ')),'T',1,'R');
+            if($dataCotizacion->incluyeigv == 1){
+              $pdf->Cell(165,5,pinta('TOTAL'),0,0,'R');
+              $pdf->Cell(22,5,pinta(number_format($total_cotizacion, 2, '.',' ')),'T',1,'R');
+            }else{
+              $pdf->Cell(165,5,pinta('Sub Total'),0,0,'R');
+              $pdf->Cell(22,5,pinta(number_format($total_cotizacion, 2, '.',' ')),'T',1,'R');
+              $pdf->Cell(165,5,pinta('Inpuestos'),0,0,'R');
+              $pdf->Cell(22,5,pinta(number_format($total_cotizacion * 0.18 , 2, '.',' ')),'T',1,'R');
+              $pdf->Cell(165,5,pinta('Sub Total'),0,0,'R');
+              $pdf->Cell(22,5,pinta(number_format($total_cotizacion + ($total_cotizacion * 0.18), 2, '.',' ')),'T',1,'R');
+            }
+        
          
       
           //- Observaciones
@@ -590,6 +600,7 @@ class ImpresionController extends Controller
       
           $pdf->Ln(5);
             $pdf->setX(42);
+          if($dataFacturacion->incluyeigv == 1){
             $pdf->setFont("Arial", "", 9);
             $pdf->Cell(15, 5, "SubTotal :", $borde, 0, "L");
             $pdf->setFont("Arial", "", 10);
@@ -604,6 +615,26 @@ class ImpresionController extends Controller
             $pdf->Cell(15, 5, "Total :", $borde, 0, "L");
             $pdf->setFont("Arial", "", 10);
             $pdf->Cell(14, 5, number_format($totalventa + 0, 2, ".", ","), $borde, 2, "R");
+          }else{
+            $pdf->setFont("Arial", "", 9);
+            $pdf->Cell(15, 5, "SubTotal :", $borde, 0, "L");
+            $pdf->setFont("Arial", "", 10);
+            $pdf->Cell(14, 5, number_format($totalventa, 2, ".", ","), $borde, 2, "R");
+            $pdf->setX(42);
+            $pdf->setFont("Arial", "", 9);
+            $pdf->Cell(15, 5, "IGV :", $borde, 0, "L");
+            $pdf->setFont("Arial", "", 10);
+            $pdf->Cell(14, 5, number_format($totalventa * 0.18, 2, ".", ","), $borde, 2, "R");
+            $pdf->setX(42);
+            $pdf->setFont("Arial", "", 9);
+            $pdf->Cell(15, 5, "Total :", $borde, 0, "L");
+            $pdf->setFont("Arial", "", 10);
+            $pdf->Cell(14, 5, number_format($totalventa + ($totalventa * 0.18), 2, ".", ","), $borde, 2, "R");
+          }
+            
+
+
+           
             $pdf->setX(6);
             $pdf->Cell(80, 5, "----------------------------------------------------------------------", $borde, 2, "L");
             $pdf->setFont("Arial", "", 9);
@@ -616,5 +647,36 @@ class ImpresionController extends Controller
             $pdf->Ln(3);
             $pdf->output();
           }
+
+          public function imprimirstockinventarioAction(){  
+            $this->view->disable();      
+            $pdf = new fpdf('P','mm','A4');
+            $request    = new Phalcon\Http\Request();
+            $data = array($request->get('mes'));
+            $jsonData = json_decode( Producto::listarInventario($data) );
+            $pdf->AddPage(); 
+            $pdf->SetFont('Arial','B',16);
+            $fila = 0;
+            $pdf->Cell(0,10,'Registro de Inventario',1,1,'C');
+            $pdf->SetFont('Arial','',9);
+            //print_r( $jsonData->data[0]);die();
+            $pdf->Cell(30,5,'Codigo' ,1,0,'C');
+            $pdf->Cell(100,5,'Producto' ,1,0,'C');
+            $pdf->Cell(20,5,'Stock Fisico' ,1,0,'C');
+            $pdf->Cell(20,5,'Inventario' ,1,0,'C');   
+            $pdf->Cell(20,5,'Diferencia' ,1,1,'C');   
+            $pdf->SetFont('Arial','',8);
+           foreach ($jsonData->data as $row){
+                //  $pdf->Code39(10,$pdf->getY(), $row->codigobarras ,0.5,10);
+              $pdf->Cell(30,5,$row->codigoproducto  ,1,0,'C');
+              $pdf->Cell(100,5,$row->nombre ,1,0,'L');
+              $pdf->Cell(20,5,$row->stockfisico ,1,0,'C');
+              $pdf->Cell(20,5,'' ,1,0,'C');   
+              $pdf->Cell(20,5,'' ,1,1,'C');   
+              
+            }
+      
+            $pdf->Output();
+        }  
       
 }

@@ -184,6 +184,12 @@ $di->set('router',function() {
     $router->add('/producto_buscar_proveedores' , array('controller'=>'producto','action'=>'listarproveedoresproducto'));
     $router->add('/producto_serie_eliminar' , array('controller'=>'producto','action'=>'eliminarserie'));
 
+    $router->add('/producto_inventario_listar' , array('controller'=>'producto','action'=>'listadoinventario'));
+    $router->add('/producto_inventario_registros' , array('controller'=>'producto','action'=>'inventarioregistros'));
+    $router->add('/producto_inventario_agregar' , array('controller'=>'producto','action'=>'inventarioagregar'));
+    $router->add('/producto_inventario_anular' , array('controller'=>'producto','action'=>'inventarioanular'));
+    $router->add('/producto_inventario_pdf' , array('controller'=>'impresion','action'=>'imprimirstockinventario'));
+   
 
     /*
     | @@ Controlador Proveedor

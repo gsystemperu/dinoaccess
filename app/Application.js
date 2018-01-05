@@ -30,6 +30,9 @@ Ext.define('dinoaccess.Application', {
         'compras.ContenedorOrdenCompra',
         'almacen.ProductoBuscarOC',
         'compras.PagosAcuenta',
+        'almacen.ContenedorInventario',
+        'almacen.ListadoInventario',
+        'almacen.InventarioInicial',
 
         'ventas.ContenedorCotizaciones',
         'ventas.ContenedorCliente',

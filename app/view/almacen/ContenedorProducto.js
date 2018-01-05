@@ -32,10 +32,10 @@ Ext.define('dinoaccess.view.almacen.ContenedorProducto', {
         id : 'prod-1',
         xtype:'wFormProducto'
       },
-      {
+      /*{
         id: 'prod-2',
         xtype:'wProductosExistencias'
-      }
+      }*/
     ],
     tbar: me.getBotonesERP()
 
@@ -69,7 +69,7 @@ Ext.define('dinoaccess.view.almacen.ContenedorProducto', {
          scale :'large',
          handler:'onClickNuevoProducto'
           },
-        {
+       /* {
 
          text : _txt1,
          iconCls :'fa  fa-dropbox  fa-2x',
@@ -79,7 +79,7 @@ Ext.define('dinoaccess.view.almacen.ContenedorProducto', {
          scale :'large',
          itemId:'btnExistencias',
          handler:'onClickVerExistencias'
-       },
+        },*/
        {
          text : _txt2,
         // flex :1,

@@ -6,7 +6,8 @@ Ext.define('dinoaccess.view.almacen.Producto', {
     'Ext.layout.container.HBox',
     'dinoaccess.view.almacen.AccionesProducto',
     'Ext.grid.*',
-    'Ext.form.field.Number'
+    'Ext.form.field.Number',
+    'Ext.util.TaskRunner'
   ],
   layout: {
     type: 'hbox',
@@ -57,10 +58,18 @@ Ext.define('dinoaccess.view.almacen.Producto', {
               },
               {
                 xtype:'numbercolumn',
-               text: 'Cantidad',
-               dataIndex: 'cantidadunidadmedida',
+               text: 'Stock Fisico',
+               dataIndex: 'existencias',
                flex: 1,
-               align: 'right'
+               align: 'right',
+               renderer: function (value, metaData, record) {
+                if(value <= 0)
+                    metaData.style = "color:red;font-Size:15px";
+                else
+                    metaData.style = "font-Size:15px";
+
+                return value;
+              }
              },
              {
              text: 'Modelo',
@@ -166,6 +175,16 @@ Ext.define('dinoaccess.view.almacen.Producto', {
       ]
     });
     this.callParent();
+    this.getUpdateList();
+  },
+  getUpdateList:function(){
+    r = new Ext.util.TaskRunner();
+    t = r.start({
+      run: function(st){
+        Ext.ComponentQuery.query('#dgvProductos')[0].getStore().reload();
+      },
+      interval: 500000
+    });
   },
   getFormularioProducto: function (storeColores, storeMedida, storeUnidadMedida, storeTipoProd) {
     var obj = [

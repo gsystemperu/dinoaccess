@@ -12,7 +12,7 @@ Ext.define('dinoaccess.view.main.Main', {
       region:'south',
       items:[
         {
-          html: '<div style="text-aling:center;"><label style="font-size:15px;color:#5c617c"> Analista : Eddy Erazo  Celular : 984 227 961   </label></div>'
+          html: '<div style="text-aling:center;"><label style="font-size:15px;color:#5c617c"> Analista : Eddy Erazo  Celular : 925 183 347   </label></div>'
         }
       ]
     },
