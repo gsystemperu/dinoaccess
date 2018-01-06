@@ -67,12 +67,12 @@ Ext.define('dinoaccess.view.almacen.AccionesProducto', {
     },
 
     onClickItemProductoERP : function( grid, record, index, eOpts ) {
-        Ext.ComponentQuery.query('#btnExistencias')[0].setText(Ext.String.format('Existencias  : {0}',(record.get('existencias')==''?0:record.get('existencias'))      ));
+        //Ext.ComponentQuery.query('#btnExistencias')[0].setText(Ext.String.format('Existencias  : {0}',(record.get('existencias')==''?0:record.get('existencias'))      ));
         Ext.ComponentQuery.query('#btnPedidos')[0].setText(Ext.String.format('Cotizaciones  : {0}',(record.get('cotizaciones')==''?0:record.get('cotizaciones'))));
         Ext.ComponentQuery.query('#btnVentas')[0].setText(Ext.String.format('Ventas  : {0}',(record.get('ventas')==''?0:record.get('ventas'))));
     },
     onClickItemProducto : function( grid, record, index, eOpts ) {
-        Ext.ComponentQuery.query('#btnExistencias')[0].setText(Ext.String.format('Existencias  : {0}',(record.get('existencias')==''?0:record.get('existencias'))      ));
+       //Ext.ComponentQuery.query('#btnExistencias')[0].setText(Ext.String.format('Existencias  : {0}',(record.get('existencias')==''?0:record.get('existencias'))      ));
         Ext.ComponentQuery.query('#btnPedidos')[0].setText(Ext.String.format('Cotizaciones  : {0}',(record.get('cotizaciones')==''?0:record.get('cotizaciones'))));
         Ext.ComponentQuery.query('#btnVentas')[0].setText(Ext.String.format('Ventas  : {0}',(record.get('ventas')==''?0:record.get('ventas'))   ));
         try {

@@ -134,6 +134,13 @@ Ext.define('dinoaccess.view.puntoventa.Main',{
                                   text: 'Precio',
                                   flex: 1,
                                   align: 'right',
+                                  editor: {
+                                    xtype: 'numberfield',
+                                    value: 0,
+                                    maxValue: 1000,
+                                    minValue: 0,
+                                //    itemId: 'txtCantidadDosis'
+                                },
 
                               },
                               {
