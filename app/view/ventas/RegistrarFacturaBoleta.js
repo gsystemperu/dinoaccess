@@ -32,7 +32,7 @@ Ext.define('dinoaccess.view.ventas.RegistrarFacturaBoleta', {
                     xtype: "form",
                     itemId: 'frmRegFacturaBoleta',
                     reference: 'frmRegFacturaBoleta',
-                    url: dinoaccess.util.Rutas.facturacionGuardar,
+                    url: dinoaccess.util.Rutas.facturacionGuardarDirecto,
                     items: [{
                             xtype: 'panel',
                             flex: 1,
@@ -40,7 +40,7 @@ Ext.define('dinoaccess.view.ventas.RegistrarFacturaBoleta', {
                             border: false,
                             items: [{
                                     xtype: 'hiddenfield',
-                                    itemId: 'txtJsonDetalle',
+                                    itemId: 'txtJsonDetalleFacBol',
                                     name: 'vjsondetalle'
                                 },
                                 {
@@ -66,7 +66,7 @@ Ext.define('dinoaccess.view.ventas.RegistrarFacturaBoleta', {
                                             columnWidth: 0.5,
                                             items: [{
                                                     xtype: 'combobox',
-                                                    itemId: 'cboDatosCliente',
+                                                    itemId: 'cboDatosClienteFacBol',
                                                     name : 'idper',
                                                     fieldLabel: 'Nombre / Razon Social',
                                                     flex: 2,
@@ -186,7 +186,6 @@ Ext.define('dinoaccess.view.ventas.RegistrarFacturaBoleta', {
                                             itemId:'documentoventa',
                                             value : 1,
                                             flex:1
-
                                         },
                                         {
                                             xtype: 'button',
@@ -349,8 +348,8 @@ Ext.define('dinoaccess.view.ventas.RegistrarFacturaBoleta', {
                                                             xtype: 'checkboxfield',
                                                             boxLabel: 'Precio incluye el I.G.V.',
                                                             name: 'incluyeigv',
-                                                            reference: 'incluyeigv',
-                                                            itemId: 'incluyeigv',
+                                                            reference: 'incluyeigvFacBol',
+                                                            itemId: 'incluyeigvFacBol',
                                                             readOnly:false,
                                                             value: 0,
                                                              listeners: {
@@ -484,8 +483,8 @@ Ext.define('dinoaccess.view.ventas.RegistrarFacturaBoleta', {
                                             padding: '0 0 0 0',
                                             items: [{
                                                     xtype: 'textfield',
-                                                    reference: 'Subtotalventas',
-                                                    itemId: 'Subtotalventas',
+                                                    reference: 'SubtotalventasFacBol',
+                                                    itemId: 'SubtotalventasFacBol',
                                                     name: 'valventacont',
                                                    // value: "0.00",
                                                     fieldLabel: 'Sub Total',
@@ -498,8 +497,8 @@ Ext.define('dinoaccess.view.ventas.RegistrarFacturaBoleta', {
                                                 {
                                                     xtype: 'textfield',
                                                     fieldLabel: 'Igv',
-                                                    reference: 'igvventas',
-                                                    itemId: 'igvventas',
+                                                    reference: 'igvventasFacBol',
+                                                    itemId: 'igvventasFacBol',
                                                     name: 'valigvcont',
                                                     //value: "0.00",
                                                     minValue: 0,
@@ -514,8 +513,8 @@ Ext.define('dinoaccess.view.ventas.RegistrarFacturaBoleta', {
                                                     xtype: 'textfield',
                                                     fieldLabel: 'Total General ',
                                                     labelAlign :'right',
-                                                    reference: 'TotalGeneral',
-                                                    itemId: 'TotalGeneral',
+                                                    reference: 'TotalGeneralFacBol',
+                                                    itemId: 'TotalGeneralFacBol',
                                                     name: 'valtotalcont',
                                                     //   decimalPrecision: 3,
                                                     //  maxValue: 9999,

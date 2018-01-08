@@ -268,6 +268,7 @@ $di->set('router',function() {
      //@Reportes : Facturacion
      $router->add('/cotizaciones_a_facturar', array('controller'=>'cotizacion','action'=>'listarCotizacionesParaFacturar'));
      $router->add('/agregar_facturacion', array('controller'=>'facturacion','action'=>'actualizar'));
+     $router->add('/agregar_facturacion_directa', array('controller'=>'facturacion','action'=>'actualizardirecta'));
      $router->add('/agregar_pago_acuenta', array('controller'=>'facturacion','action'=>'actualizarPagoAcuenta'));
      $router->add('/buscar_pago_acuenta', array('controller'=>'facturacion','action'=>'buscarpagoacuenta'));
      $router->add('/agregar_punto_venta_pago', array('controller'=>'facturacion','action'=>'actualizarpuntoventapago'));

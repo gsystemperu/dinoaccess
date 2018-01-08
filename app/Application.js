@@ -79,7 +79,6 @@ Ext.define('dinoaccess.Application', {
     ],
     launch: function () {
        //$('#splashscreen').hide();
-       alert("aaa");
        Ext.util.Format.decimalSeparator = '.';
        Ext.util.Format.thousandSeparator = ' ';
        Ext.create('wMain');

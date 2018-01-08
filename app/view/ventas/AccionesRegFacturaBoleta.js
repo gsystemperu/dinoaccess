@@ -28,9 +28,9 @@ Ext.define('dinoaccess.view.ventas.AccionesRegFacturaBoleta', {
     },
 
     onClickBuscarProducto: function (btn) {
-      if(Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue()){
+      if(Ext.ComponentQuery.query('#cboDatosClienteFacBol')[0].getValue()){
         var _win = Ext.create('dinoaccess.view.ventas.BuscarProductoFB', { 
-            cliente: Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue(),
+            cliente: Ext.ComponentQuery.query('#cboDatosClienteFacBol')[0].getValue(),
             detalle : 'dgvDetalleVentaFacturaBoleta' 
         });
         _win.show(btn, function () {}, this);
@@ -155,10 +155,10 @@ Ext.define('dinoaccess.view.ventas.AccionesRegFacturaBoleta', {
                       }
                    });
 
-                    __objChk      = Ext.ComponentQuery.query('#incluyeigv')[0];
-                    __objIgv      = Ext.ComponentQuery.query('#igvventas')[0];
-                    __objSubTotal = Ext.ComponentQuery.query('#Subtotalventas')[0];
-                    __objTotal    = Ext.ComponentQuery.query('#TotalGeneral')[0];
+                    __objChk      = Ext.ComponentQuery.query('#incluyeigvFacBol')[0];
+                    __objIgv      = Ext.ComponentQuery.query('#igvventasFacBol')[0];
+                    __objSubTotal = Ext.ComponentQuery.query('#SubtotalventasFacBol')[0];
+                    __objTotal    = Ext.ComponentQuery.query('#TotalGeneralFacBol')[0];
                     
                     var _igv = 0;
                     __objSubTotal.setValue(_tot.toFixed(2));
@@ -252,10 +252,10 @@ Ext.define('dinoaccess.view.ventas.AccionesRegFacturaBoleta', {
     },
     onCalcularTotalVenta: function (conigv) {
         me = this;
-        __objChk      = Ext.ComponentQuery.query('#incluyeigv')[0];
-        __objIgv      = this.lookupReference('igvventas');
-        __objSubTotal = this.lookupReference('Subtotalventas');
-        __objTotal    = this.lookupReference('TotalGeneral');
+        __objChk      = Ext.ComponentQuery.query('#incluyeigvFacBol')[0];
+        __objIgv      = this.lookupReference('igvventasFacBol');
+        __objSubTotal = this.lookupReference('SubtotalventasFacBol');
+        __objTotal    = this.lookupReference('TotalGeneralFacBol');
 
         var store = Ext.ComponentQuery.query('#dgvDetalleVentaFacturaBoleta')[0].getStore();
         var _tot = 0;
@@ -292,10 +292,10 @@ Ext.define('dinoaccess.view.ventas.AccionesRegFacturaBoleta', {
     },
     onCalcularTotalVentaPorBusqueda: function () {
         me = this;
-        __objChk      = Ext.ComponentQuery.query('#incluyeigv')[0];
-        __objIgv      = Ext.ComponentQuery.query('#igvventas')[0];
-        __objSubTotal = Ext.ComponentQuery.query('#Subtotalventas')[0];
-        __objTotal    = Ext.ComponentQuery.query('#TotalGeneral')[0];
+        __objChk      = Ext.ComponentQuery.query('#incluyeigvFacBol')[0];
+        __objIgv      = Ext.ComponentQuery.query('#igvventasFacBol')[0];
+        __objSubTotal = Ext.ComponentQuery.query('#SubtotalventasFacBol')[0];
+        __objTotal    = Ext.ComponentQuery.query('#TotalGeneralFacBol')[0];
 
         var store = Ext.ComponentQuery.query('#dgvDetalleVentaFacturaBoleta')[0].getStore();
         var _tot = 0;
@@ -342,7 +342,7 @@ Ext.define('dinoaccess.view.ventas.AccionesRegFacturaBoleta', {
           l.setActiveItem(0);
 
     },
-    onClickGuardarFacturaBoleta: function () {
+    onClickGuardarFacturaBoleta: function (btn) {
        var _form =  Ext.ComponentQuery.query('#frmRegFacturaBoleta')[0];    //this.lookupReference('frmRegFacturaBoleta');
         if (_form.isValid()) {
 
@@ -362,7 +362,7 @@ Ext.define('dinoaccess.view.ventas.AccionesRegFacturaBoleta', {
                 }
 
             });
-            _txt1 = Ext.ComponentQuery.query('#txtJsonDetalle');
+            _txt1 = Ext.ComponentQuery.query('#txtJsonDetalleFacBol');
             _txt1[0].setValue(JSON.stringify(_dataDetalle));
             var _view = this.getView();
             _form.submit({
@@ -378,12 +378,12 @@ Ext.define('dinoaccess.view.ventas.AccionesRegFacturaBoleta', {
                     //    vIdCotizacion: 0
                     //};
                     //_store.load(1);
-
-
+                    _panel = btn.up('tabpanel');
+                    _panel.getChildByElement('wRegistrarFacturaBoleta').close();
                 },
-                failure: function () {
+                failure: function (action) {
                     Ext.Msg.alert("Aviso", action.result.msg);
-                    _view.close();
+                    //_view.close();
                 }
             });
         } else {
@@ -401,7 +401,7 @@ Ext.define('dinoaccess.view.ventas.AccionesRegFacturaBoleta', {
     //@ Accion en la ventana de registro de usuario por el formulario de cotizaciones
     onClickGuardarCliente: function () {
         var _form = this.lookupReference('myFormCliente');
-        var _store = Ext.ComponentQuery.query('#cboDatosCliente')[0].getStore();
+        var _store = Ext.ComponentQuery.query('#cboDatosClienteFacBol')[0].getStore();
         if (_form.isValid()) {
             var _view = this.getView();
             _form.submit({
@@ -774,7 +774,7 @@ Ext.define('dinoaccess.view.ventas.AccionesRegFacturaBoleta', {
 
     //-----------------------------------------------------------
     onClickBuscarCotizacionesAnteriores:function(btn){
-        var _codcliente = this.lookupReference('cboDatosCliente').getValue();
+        var _codcliente = this.lookupReference('cboDatosClienteFacBol').getValue();
         console.log(_codcliente);
         if(_codcliente)
             Ext.create('dinoaccess.view.ventas.CotizacionesClienteBuscar',{ codigo : _codcliente });

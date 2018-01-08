@@ -4,10 +4,10 @@ Ext.define('dinoaccess.store.tree.Mantenimiento', {
         expanded: true,
         children: [
             {
-              text: 'MAESTROS',
+              text: 'Maestros Sistema',
               leaf: true,
               itemId: "wRegMaestros",
-              titulo: "MAESTROS",
+              titulo: "Maestros",
               glyph: 'xf013'
             },
         ]

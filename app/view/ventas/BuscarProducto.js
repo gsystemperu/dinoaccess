@@ -71,31 +71,9 @@ Ext.define('dinoaccess.view.ventas.BuscarProducto', {
                                   metaData.style = "color:#0404B4;fontSize:15px;";
                                   return value;
                                 }
-
-
                               }
                           },
-                         /* {
-                            xtype :'numbercolumn',
-                               text:'Stock Dosis',
-                               flex: 0.5,
-                               dataIndex:'stock_dosis',
-                               align :'center'
-                           },
-                           {
-                             xtype :'numbercolumn',
-                                text:'Stock Kilos',
-                                flex: 0.5,
-                                dataIndex:'stock_kilos',
-                                align :'center'
-                            },
-                            {
-                              xtype :'numbercolumn',
-                                 text:'Stock Gramos',
-                                 flex: 0.5,
-                                 dataIndex:'stock_gramos',
-                                 align :'center'
-                             },*/
+                       
                         {
                           xtype :'numbercolumn',
                             text:'Precio',
@@ -105,14 +83,7 @@ Ext.define('dinoaccess.view.ventas.BuscarProducto', {
                         }
 
                     ],
-                     /*features: [{
-
-                        ftype: 'grouping',
-                        groupHeaderTpl: '{name}',
-                        hideGroupedHeader: true,
-                        startCollapsed: true
-                    }],*/
-                     listeners: {
+                    listeners: {
                             cellclick: 'onClickRowProducto'
                         }
                 }

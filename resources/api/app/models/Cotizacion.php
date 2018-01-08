@@ -127,19 +127,7 @@ class Cotizacion extends \Phalcon\Mvc\Model
           $sql     =  $obj->executarQuery('SELECT * FROM ventas.tipodocumento');
           return $sql;
     }
-    //public static function proveedorListar($vNumDoc,$vNumRuc,$vNmbres){
     public static function proveedorListar($data){
-          /*$helper   = new FuncionesHelpers();
-          $sql      = "SELECT * FROM cotizacion.sp_proveedor_listar (".
-          $helper->esCadenaNulo($vNumDoc) .",".
-          $helper->esCadenaNulo($vNumRuc). ",".
-          $helper->esCadenaNulo($vNmbres) .")";
-          $reporte  = new DpTbCotizacion();
-          $rs       = new Resultset(null,$reporte,$reporte->getReadConnection()->query($sql));
-          $data     = $rs->toArray();
-          return    $data;*/
-
-
               $obj     = new SQLHelpers();
               $param   = $data;
               $sql     =  $obj->executarJson('ventas','sp_proveedor_listar',$param);

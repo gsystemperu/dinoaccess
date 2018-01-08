@@ -73,6 +73,7 @@ Ext.define('dinoaccess.util.Rutas', {
 
         //@ Acciones => Facturacion  *****************************************
         facturacionGuardar:'resources/api/agregar_facturacion',
+        facturacionGuardarDirecto:'resources/api/agregar_facturacion_directa',
         facturacionAgregarPagosAcuenta:'resources/api/agregar_pago_acuenta',
         facturacionBuscarPagosAcuenta:'resources/api/buscar_pago_acuenta',
         facturacionGuardarPagoPuntoVenta:'resources/api/agregar_punto_venta_pago',

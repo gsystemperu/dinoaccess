@@ -9,7 +9,6 @@ Ext.define('dinoaccess.store.tree.ControlVentas', {
              {
                text: 'Facturación',
                expanded: true,
-               //leaf : true,
                 titulo : '',
                 children: [
                  {
@@ -32,12 +31,12 @@ Ext.define('dinoaccess.store.tree.ControlVentas', {
                ]
              },
              {
-               text: 'PUNTO VENTA',
+               text: 'Punto Venta',
                expanded: true,
                titulo : '',
                 children: [
                  {
-                   text: 'TIENDA',
+                   text: 'Tienda',
                    leaf: true,
                    itemId: "wContenedorPuntoVenta",
                    titulo: ".:. Tienda .:. ",

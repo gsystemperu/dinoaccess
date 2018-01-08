@@ -31,6 +31,32 @@ class FacturacionController extends Controller
            return $response;
       }
     }
+    public function actualizardirectaAction(){
+      $request        = new Phalcon\Http\Request();
+      $response       = new \Phalcon\Http\Response();
+      if($request->isPost() ==true)
+      {
+           $vId       = $request->getPost('idfacturacion');
+           $vIdCoti   = $request->getPost('idcoti');
+           $vFecha    = $request->getPost('fechacoti');
+           $vIdCliente =$request->getPost('idper');
+           $vUsuario      = 'desarrollo';   //$request->getPost('vusuario');
+           $vJsonDetalle  =  $request->getPost('vjsondetalle');
+           $vFormaPago    =  $request->getPost('idfopag');
+           $vModoEntrega  =  $request->getPost('idmodo');
+           $vDocVenta     =  $request->getPost('documentoventa');
+           $vIncluyeIgv= ($request->getPost('incluyeigv')? 1:0);
+           $vFechaValidoHasta  = ( $request->getPost('validohasta')==''? $request->getPost('fechavalidohasta') : $request->getPost('validohasta'));
+           $vSerieDoc     = $request->getPost('serie');
+           $vNumeroDoc    = $request->getPost('numerodoc');
+           $vPagoAcuenta  = $request->getPost('pagoacuenta');
+           $data = array($vId,$vIdCoti,$vFecha,$vIdCliente,$vUsuario,$vJsonDetalle, $vFormaPago,$vModoEntrega,$vDocVenta,$vIncluyeIgv,$vFechaValidoHasta,$vSerieDoc,$vNumeroDoc,$vPagoAcuenta);
+           $jsonData             = Facturacion::actualizarDirecta($data);
+           $response->setContentType('application/json', 'UTF-8');
+           $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));
+           return $response;
+      }
+    }
     public function anularAction(){
          $request        = new Phalcon\Http\Request();
          $response       = new \Phalcon\Http\Response();

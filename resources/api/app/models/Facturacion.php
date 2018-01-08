@@ -13,6 +13,13 @@ class Facturacion extends \Phalcon\Mvc\Model
         $sql     =  $obj->executar('ventas','sp_facturacion_agregar',$param);
         return $sql;
     }
+    public static function actualizarDirecta($data)
+    {
+        $obj     = new SQLHelpers();
+        $param   = $data;
+        $sql     =  $obj->executar('ventas','sp_facturacion_directa_agregar',$param);
+        return $sql;
+    }
     public static function actualizarPagoAcuenta($data)
     {
         $obj     = new SQLHelpers();
