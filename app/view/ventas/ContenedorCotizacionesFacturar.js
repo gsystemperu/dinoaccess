@@ -10,7 +10,6 @@ Ext.define('dinoaccess.view.ventas.ContenedorCotizacionesFacturar', {
   layout: {
     type: 'card',
     align: 'stretch',
-    //deferredRender: true,
   },
   bodyPadding: 0,
   defaults: {

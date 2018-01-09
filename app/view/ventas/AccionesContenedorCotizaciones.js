@@ -45,20 +45,18 @@ Ext.define('dinoaccess.view.ventas.AccionesContenedorCotizaciones', {
     },
     onClickConfirmarCotizacion:function(btn){
       me = this;
-      var _record =  Ext.ComponentQuery.query('#dgvVentasCotizaciones')[0].getSelectionModel().getSelection()[0];
-      if (_record) {
+        r =  Ext.ComponentQuery.query('#dgvVentasCotizaciones')[0].getSelectionModel().getSelection()[0];
+      if (r) {
          me.getView().mask('..... confirmando datos');
           Ext.Ajax.request({
             url :dinoaccess.util.Rutas.confirmarVentaCotizacion,
             params:{
-              idcoti : _record.get('vid')
+              idcoti : r.get('vid')
             },
             success:function(response){
                 var text =response.responseText;
                 me.getView().unmask();
                 Ext.ComponentQuery.query('#dgvVentasCotizaciones')[0].getStore().reload();
-                storeDet = Ext.ComponentQuery.query('#dgvDetalleCotizacion')[0].getStore();
-                _storeDet.getProxy().extraParams = {vIdCotizacion: 0};_storeDet.load(1);
             }
           });
       } else {
