@@ -149,17 +149,17 @@ class CotizacionController extends Controller
               $vJsonDetalle = $request->getPost('vjsondetalle');
               $vFormaPago= ( $request->getPost('vformapago')==''? $request->getPost('idfopag') : $request->getPost('vformapago') );
               $vModoEntrega= ( $request->getPost('vmodoentrega')==''? $request->getPost('idmodo'): $request->getPost('vmodoentrega'));
-              $vVendedor= 0;  //( $request->getPost('vvendedor') == ''?  $request->getPost('idvend'):  $request->getPost('vvendedor'));
+              $vVendedor= 0; 
               $vIncluyeIgv= ($request->getPost('incluyeigv')? 1:0);
               $vReferencia  = $request->getPost('vreferencia');
               $vFechaValidoHasta  = ( $request->getPost('fechavalidohasta')==''? $request->getPost('fechavalidohasta') : $request->getPost('fechavalidohasta'));
               $vComentario  = $request->getPost('comentario');
               $vidMoneda     =$request->getPost('idmoneda');
+              $vidDocumento     =$request->getPost('documentoventa');
               
               $data = array($vId,$vFecha,$vIdCliente,$vUsuario,$vJsonDetalle,
-               $vFormaPago,$vModoEntrega,$vVendedor,$vIncluyeIgv,$vReferencia,
-               $vFechaValidoHasta,$vComentario,$vidMoneda);
-             // print_r($data);die();
+              $vFormaPago,$vModoEntrega,$vVendedor,$vIncluyeIgv,$vReferencia,
+              $vFechaValidoHasta,$vComentario,$vidMoneda,$vidDocumento);
               $jsonData             = Cotizacion::agregarCotizacion($data);
               $response->setContentType('application/json', 'UTF-8');
               $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));

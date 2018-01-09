@@ -9,7 +9,6 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
         'Ext.grid.plugin.RowEditing'
       ],
       itemId: 'wRegistrarCotizacion',
-      bodyPadding: 5,
       controller: 'acciones-regcotizacion',
       initComponent: function () {
         var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
@@ -33,6 +32,7 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                 itemId: 'frmRegCotizacion',
                 reference: 'frmRegCotizacion',
                 url: dinoaccess.util.Rutas.cotizacionGuardar,
+                bodyPadding:20,
                 items: [{
                     xtype: 'panel',
                     flex: 1,
@@ -192,10 +192,7 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                             glyph: dinoaccess.util.Glyphs.getGlyph('nuevo'),
                             handler: 'onClickMantenimiento'
                           },
-
                         ]
-
-
                       },
                       {
                         xtype: 'container',
@@ -203,7 +200,6 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                           type: 'hbox',
                           anchor: 'strech'
                         },
-                       // title: 'Pago',
                         defaults: {
                           labelWidth: 150,
                         },
@@ -222,7 +218,10 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                                 editable:false,
                                 itemId:'documentoventa',
                                 value : 2,
-                                flex:1
+                                flex:1,
+                                listeners :{
+                                  change:'onChangeCambiarDocumento'
+                                }
                             },
                          {
                             xtype: 'combo',
@@ -258,13 +257,8 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                             glyph: dinoaccess.util.Glyphs.getGlyph('nuevo'),
                             handler: 'onClickMantenimiento'
                           },
-
                         ]
-
-
                       },
-
-
                       {
                         xtype: 'container',
                         columnWidth: 0.1,
@@ -471,7 +465,8 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                                   labelWidth: 120,
                                   fieldStyle: 'text-align: right;font-size:16px;',
                                   labelAlign: 'right',
-                                  labelStyle: 'font-size:16px'
+                                  labelStyle: 'font-size:16px',
+                                  hidden:true
                                 },
                                 {
                                   xtype: 'textfield',
@@ -479,14 +474,14 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                                   reference: 'igvventas',
                                   itemId: 'igvventas',
                                   name: 'valigvcont',
-                                  //value: "0.00",
                                   minValue: 0,
                                   readOnly: true,
                                   width: 280,
                                   labelWidth: 120,
                                   fieldStyle: 'text-align: right;font-size:16px;',
                                   labelAlign: 'right',
-                                  labelStyle: 'font-size:16px'
+                                  labelStyle: 'font-size:16px',
+                                  hidden:true
                                 },
                                 {
                                   xtype: 'textfield',

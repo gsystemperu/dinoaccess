@@ -94,6 +94,7 @@ Ext.define('dinoaccess.model.Cotizacion', {
         { name : 'fechavalidohasta',type:'string'},
         { name : 'comentario',type:'string'},
         { name : 'idmoneda',type:'integer'},
+        { name : 'iddocumento',type:'integer'}
 
 
 
