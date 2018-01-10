@@ -173,6 +173,20 @@ Ext.define('dinoaccess.view.puntoventa.MainController', {
            __acuenta = Ext.ComponentQuery.query('#txtAcuentaVentaCajaValidar')[0].getValue();
            Ext.ComponentQuery.query('#txtSaldoVentaCajaValidar')[0].setValue(__total - __acuenta);
        }
+     },
+     onActivateRadio:function(obj, newValue, oldValue,e){
+      __total   = Ext.ComponentQuery.query('#txtTotalVentabk')[0].getValue();
+      if(newValue.dv == 1){
+        Ext.ComponentQuery.query('#txtSubTotalVentaCajaValidar')[0].setValue(__total);
+        Ext.ComponentQuery.query('#txtIgvVentaCajaValidar')[0].setValue(__total * 0.18);
+        Ext.ComponentQuery.query('#txtTotalVentaCajaValidar')[0].setValue(__total + (__total * 0.18));
+       
+        }else{
+        Ext.ComponentQuery.query('#txtSubTotalVentaCajaValidar')[0].setValue(__total);
+        Ext.ComponentQuery.query('#txtIgvVentaCajaValidar')[0].setValue(0);
+        Ext.ComponentQuery.query('#txtTotalVentaCajaValidar')[0].setValue(__total);
+       
+        }
      }
 
 });

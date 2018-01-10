@@ -45,21 +45,6 @@ Ext.define('dinoaccess.view.puntoventa.ContenedorMain', {
   getBotonesERP:function(){
     __storeClientes  = Ext.create('dinoaccess.store.Clientes');
     return obj = [
-      /*{
-          xtype:'label',
-          text :'CLIENTE',
-          padding: '5px 0 0 0',
-          border: true,
-          width: 70,
-          height: 25,
-          style: {
-              background: '#775c80',
-              color: 'white',
-              textAlign: 'center',
-              fontWeight: 'bold',
-              fontSize: '11px'
-          }
-      },*/
       {
         xtype:'combo',
         flex: 2.9,
@@ -92,7 +77,8 @@ Ext.define('dinoaccess.view.puntoventa.ContenedorMain', {
         text : 'APERTURAR',
         itemId:'btnAperturar',
         scale : 'medium',
-        handler:'onClickApeturarCaja'
+        handler:'onClickApeturarCaja',
+        hidden:true
       },
       {
         text : 'REGRESAR',

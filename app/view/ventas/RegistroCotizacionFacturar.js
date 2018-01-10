@@ -33,6 +33,7 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                     items: [{
                             xtype: 'panel',
                             flex: 1,
+                            padding : '5 5 5 5',
                             frame: false,
                             border: false,
                             items: [{
@@ -52,15 +53,14 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                     value: 0
                                 },
                                 {
-                                    xtype: 'fieldset',
+                                    xtype: 'container',
                                     defaultType: 'textfield',
                                     title: 'Datos Generales',
                                     layout: 'fit',
                                     items: [{
                                             xtype: 'container',
                                             layout: 'hbox',
-                                            margin: '0 0 5 6',
-                                            columnWidth: 0.5,
+                                            columnWidth: 0.5,defaults:{ labelWidth: 150},
                                             items: [{
                                                     xtype: 'combobox',
                                                     itemId: 'cboDatosClienteFact',
@@ -68,7 +68,7 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                                     fieldLabel: 'Nombre / Razon Social',
                                                     flex: 2,
                                                     fieldStyle: 'text-transform:uppercase',
-                                                    labelWidth: 150,
+                                                   
                                                     allowBlank: false,
                                                     editable: true,
                                                     forceSelection : true,
@@ -77,30 +77,7 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                                     displayField: 'nombreper',
                                                     valueField :'idper',
                                                     readOnly:true,
-                                                    fieldStyle :'font-size:20px;'
-                                                },
-                                                {
-
-                                                    xtype: 'datefield',
-                                                    fieldLabel: 'Fecha Venta',
-                                                    value: new Date(),
-                                                    labelAlign: 'right',
-                                                    flex: 0.8,
-                                                    itemId: 'dtFechaVenta',
-                                                    name: 'fechacoti',
-                                                    allowBlank:false
-
-                                                },
-                                                {
-                                                  xtype:'datefield',
-                                                  fieldLabel :'Válido Hasta',
-                                                  labelAlign :'right',
-                                                  editable:false,
-                                                  name : 'fechavalidohasta',
-                                                  value : new Date(),
-                                                  flex: 0.8,
-                                                  readOnly:true,
-                                                  name :'validohasta'
+                                                    fieldStyle :'font-size:25px;'
                                                 },
                                                 {
 
@@ -121,12 +98,54 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                     ]
 
                                 },
+                                
+                                {
+                                    xtype: 'container',
+                                    defaultType: 'textfield',
+                                    layout: 'hbox',
+                                    columnWidth: 0.5,defaults:{ labelWidth: 150},
+                                    padding : '5 0 5 0',
+                                    items: [
+                                        {
+
+                                            xtype: 'datefield',
+                                            fieldLabel: 'Fecha Venta',
+                                            value: new Date(),
+                                            labelAlign: 'right',
+                                            flex: 0.8,
+                                            itemId: 'dtFechaVenta',
+                                            name: 'fechacoti',
+                                            allowBlank:false,
+                                            flex: 1
+                                            
+        
+                                        },
+                                        {
+                                          xtype:'datefield',
+                                          fieldLabel :'Válido Hasta',
+                                          labelAlign :'right',
+                                          editable:false,
+                                          name : 'fechavalidohasta',
+                                          value : new Date(),
+                                          flex: 0.8,
+                                          readOnly:true,
+                                          name :'validohasta',
+                                          flex: 1
+                                        },
+        
+
+                                    ]
+
+                                },
+
+                                
+
                                 {
                                     xtype: 'container',
                                     layout: 'hbox',
                                     defaults: {
-                                        labelWidth: 80,
-                                        //  padding:'0 5 0 0'
+                                        labelWidth: 150,
+                                        labelAlign:'right'
                                     },
                                     items: [{
                                             xtype: 'combo',
@@ -150,7 +169,7 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                         },
                                         {
                                             xtype: 'combo',
-                                            fieldLabel: 'Mod. Entrega',
+                                            fieldLabel: 'Modo Entrega',
                                             store: storeModoEntrega,
                                             displayField: 'descripcion',
                                             valueField: 'idmodo',
@@ -181,30 +200,18 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                             editable:false,
                                             itemId:'documentoventa',
                                             value : 1,
-                                            flex:1
+                                            flex:1,
+                                            listeners:{
+                                                select:'onSelectCambiarDocumento'
+                                            }
 
                                         },
                                         {
                                             xtype: 'button',
                                             glyph: dinoaccess.util.Glyphs.getGlyph('nuevo'),
                                             handler: 'onClickMantenimiento'
-                                        },
-                                        {
-                                          xtype:'textfield',
-                                          fieldLabel :'Serie/Número',
-                                          labelAlign :'right',
-                                          name : 'serie',
-                                          value : '001',
-                                          flex : 0.5,
-                                          allowBlank:false
-                                        },
-                                        {
-                                          xtype:'textfield',
-                                          labelAlign :'right',
-                                          name : 'numerodoc',
-                                          flex : 0.5,
-                                          allowBlank:false
-                                        },
+                                        }
+                                      
                                     ]
 
 
@@ -213,8 +220,9 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                     xtype: 'container',
                                     layout: 'hbox',
                                     defaults: {
-                                        labelWidth: 80,
-                                        padding : '5 0 5 0'
+                                        labelWidth: 150,
+                                        padding : '5 0 5 0',
+                                        labelAlign:'right'
                                     },
                                     items: [
                                           {
@@ -226,7 +234,6 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                               queryMode: 'local',
                                               allowBlank: false,
                                               name: 'idmoneda',
-                                              labelAlign:'left',
                                               editable:false,
                                               itemId:'idmoneda',
                                               value : 1,
@@ -239,7 +246,6 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                             name : 'pagoacuenta',
                                             value : 0,
                                             flex : 2,
-                                            labelWidth : 75,
                                             labelAlign:'right'
                                           }
                                     ]
@@ -249,11 +255,10 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                 {
                                     xtype: 'fieldset',
                                     columnWidth: 0.1,
-                                    title: 'Detalle',
                                     defaultType: 'textfield',
                                     items: [{
                                             xtype: 'container',
-                                            margin: '0 0 0 -5',
+                                            padding : '5 0 5 0',
                                             layout: 'fit',
                                             frame: true,
                                             border: false,
@@ -303,7 +308,7 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                                             {
                                                               xtype: 'label',
                                                               text: 'Nro. Cotizacion :',
-                                                              width: 120,
+                                                              width : 250,
                                                               height: 23,
                                                               style: {
                                                                   paddingTop: '3px',
@@ -316,13 +321,13 @@ Ext.define('dinoaccess.view.ventas.RegistroCotizacionFacturar', {
                                                             },
                                                             {
                                                               xtype:'textfield',
-                                                              flex : 1,
+                                                              flex : 2,
                                                               readOnly : true,
                                                               fieldStyle: 'text-align: center;font-size:15px;font-weight:bold; ',
                                                               name : 'idcotitxt'
                                                             },
                                                             {
-                                                                xtype: 'checkboxfield',
+                                                                xtype: 'checkboxfield',hidden:true,
                                                                 boxLabel: 'Precio incluye el I.G.V.',
                                                                 labelStyle :'font-size:17px;',
                                                                 name: 'incluyeigv',

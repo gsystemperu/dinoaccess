@@ -32,7 +32,7 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                 itemId: 'frmRegCotizacion',
                 reference: 'frmRegCotizacion',
                 url: dinoaccess.util.Rutas.cotizacionGuardar,
-                bodyPadding:20,
+                bodyPadding:10,
                 items: [{
                     xtype: 'panel',
                     flex: 1,
@@ -53,12 +53,10 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                         xtype: 'container',
                         defaultType: 'textfield',
                         layout: 'fit',
-                        //title: 'Cliente',
+                        padding:'5 0 5 0',
                         items: [{
                             xtype: 'container',
                             layout: 'hbox',
-                            margin: '5 5 5 5',
-                            columnWidth: 0.5,
                             items: [{
                                 xtype: 'combobox',
                                 itemId: 'cboDatosCliente',
@@ -66,14 +64,15 @@ Ext.define('dinoaccess.view.ventas.RegistrarCotizacion', {
                                 fieldLabel: 'Nombre / Razon Social',
                                 flex: 2,
                                 fieldStyle: 'text-transform:uppercase',
-                                labelWidth: 145,
+                                labelWidth: 150,
                                 allowBlank: false,
                                 editable: true,
                                 forceSelection: true,
                                 store: storeClientes,
                                 queryMode: 'local',
                                 displayField: 'nombreper',
-                                valueField: 'idper'
+                                valueField: 'idper',
+                                fieldStyle :'font-size:20px;'
                               },
                               {
                                 xtype: 'button',

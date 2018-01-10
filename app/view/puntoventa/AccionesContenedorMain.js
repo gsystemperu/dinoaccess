@@ -12,8 +12,13 @@ Ext.define('dinoaccess.view.puntoventa.AccionesContenedorMain', {
         var l = me.getLayout();
         l.setActiveItem(1);
         __valorVenta = Ext.ComponentQuery.query('#txtTotalVentaCaja')[0].getValue();
+        
+        Ext.ComponentQuery.query('#txtTotalVentabk')[0].setValue(__valorVenta);
         Ext.ComponentQuery.query('#txtTotalVentaCajaValidar')[0].setValue(
-          __valorVenta
+          Ext.util.Format.number( __valorVenta.toFixed(2), "0,000.00")
+        );
+        Ext.ComponentQuery.query('#txtSubTotalVentaCajaValidar')[0].setValue(
+          Ext.util.Format.number( __valorVenta.toFixed(2), "0,000.00")
         );
         Ext.ComponentQuery.query('#txtSaldoVentaCajaValidar')[0].setValue(
           __valorVenta

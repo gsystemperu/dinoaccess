@@ -18,11 +18,11 @@ Ext.define('dinoaccess.view.ventas.AccionesContenedorCotizacionesFacturar', {
     },
     onClickCrearCotizacionFactura:function(btn){
       try {
-        var _record =  Ext.ComponentQuery.query('#dgvVentasFacturar')[0].getSelectionModel().getSelection()[0];
-        if (_record)
+        var r =  Ext.ComponentQuery.query('#dgvVentasFacturar')[0].getSelectionModel().getSelection()[0];
+        if (r)
         {
-          if(_record.get('estado')== 3  || _record.get('estado')== 4 ||
-             _record.get('estado')== 5  || _record.get('estado')== 6 ){
+          if(r.get('estado')== 3  || r.get('estado')== 4 ||
+             r.get('estado')== 5  || r.get('estado')== 6 ){
             Ext.Msg.alert("Aviso","Ya fue generado no se puede modificar!");
             return false;
           }
@@ -31,18 +31,17 @@ Ext.define('dinoaccess.view.ventas.AccionesContenedorCotizacionesFacturar', {
           var l = me.getLayout();
           l.setActiveItem(1);
           Ext.ComponentQuery.query('#frmRegCotizacionFacturar')[0].reset();
-          Ext.ComponentQuery.query('#frmRegCotizacionFacturar')[0].loadRecord(_record);
+          Ext.ComponentQuery.query('#frmRegCotizacionFacturar')[0].loadRecord(r);
           Ext.ComponentQuery.query('#dgvDetalleVentaFacturar')[0].getStore().removeAll();
-
+          Ext.ComponentQuery.query('#wContenedorCotizacionesFacturar')[0].mask('..Cargando');
           var  _tot = 0;
           Ext.Ajax.request({
               url :dinoaccess.util.Rutas.cotizacionDetalle,
               params:{
-                vIdCotizacion : _record.get('idcoti')
+                vIdCotizacion : r.get('idcoti')
               },
               success:function(response){
-                var _ds = Ext.JSON.decode(response.responseText);
-                me.mask('.. cargando');
+                _ds = Ext.JSON.decode(response.responseText);
                 Ext.each(_ds.data,function(record)
                  {
                     var _store         = Ext.ComponentQuery.query('#dgvDetalleVentaFacturar')[0].getStore();
@@ -60,29 +59,33 @@ Ext.define('dinoaccess.view.ventas.AccionesContenedorCotizacionesFacturar', {
 
                       _store.insert(0, _data);
                  });
-                 me.unmask();
-                 console.log(_tot);
-                 __objChk      = Ext.ComponentQuery.query('#incluyeigvfacturacion')[0];
-                 __objIgv      = Ext.ComponentQuery.query('#igvventasfacturacion')[0];
-                 __objSubTotal = Ext.ComponentQuery.query('#Subtotalventasfacturacion')[0];
-                 __objTotal    = Ext.ComponentQuery.query('#TotalGeneralfacturacion')[0];
-
-                 var _igv = 0;
-                 __objSubTotal.setValue(_tot.toFixed(2));
-                 if (__objChk.getValue()){var _igv = 0;}
-                 else{var _igv = _tot * 0.18;}
-                 __objSubTotal.setValue(
-                     Ext.util.Format.number(_tot.toFixed(2), "0,000.00")
-                 );
-                 __objIgv.setValue(
-                     Ext.util.Format.number(_igv.toFixed(2), "0,000.00")
-                 );
-                 var _totven = 0;
-                 _totven     = _tot + _igv;
-                 __objTotal.setValue(
-                     Ext.util.Format.number(_totven.toFixed(2), "0,000.00")
-                 );
-
+                 Ext.ComponentQuery.query('#wContenedorCotizacionesFacturar')[0].unmask();
+                 c      = Ext.ComponentQuery.query('#incluyeigvfacturacion')[0];
+                 i      = Ext.ComponentQuery.query('#igvventasfacturacion')[0];
+                 s      = Ext.ComponentQuery.query('#Subtotalventasfacturacion')[0];
+                 t      = Ext.ComponentQuery.query('#TotalGeneralfacturacion')[0];
+                 
+                 if(r.get('documentoventa')==1){//Factura
+                   s.setValue(
+                   Ext.util.Format.number( r.get('valventacont'), "0,000.00")
+                  );
+                   i.setValue(
+                   Ext.util.Format.number( r.get('valigvcont'), "0,000.00")
+                  );
+                   t.setValue(
+                   Ext.util.Format.number( r.get('valtotalcont'), "0,000.00")
+                  );
+                 }else{
+                  s.setValue(
+                    Ext.util.Format.number( r.get('valventacont'), "0,000.00")
+                   );
+                    i.setValue(
+                    Ext.util.Format.number( r.get('valigvcont'), "0,000.00")
+                   );
+                    t.setValue(
+                    Ext.util.Format.number( r.get('valtotalcont'), "0,000.00")
+                   );
+                 }
               }
           });
 

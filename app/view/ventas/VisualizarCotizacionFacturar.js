@@ -34,6 +34,7 @@ Ext.define('dinoaccess.view.ventas.VisualizarCotizacionFacturar', {
                             flex: 1,
                             frame: false,
                             border: false,
+                            padding : 10,
                             items: [{
                                     xtype: 'hiddenfield',
                                     itemId: 'txtJsonDetalleFacturacion',
@@ -51,15 +52,13 @@ Ext.define('dinoaccess.view.ventas.VisualizarCotizacionFacturar', {
                                     value: 0
                                 },
                                 {
-                                    xtype: 'fieldset',
-                                    defaultType: 'textfield',
-                                    title: 'Datos Generales',
-                                    layout: 'fit',
-                                    items: [{
+                                  
                                             xtype: 'container',
                                             layout: 'hbox',
-                                            margin: '0 0 5 6',
-                                            columnWidth: 0.5,
+                                            defaults:{
+                                                labelWidth: 180,
+                                                labelAlign:'right'
+                                            },
                                             items: [{
                                                     xtype: 'combobox',
                                                     itemId: 'cboDatosClienteFact',
@@ -67,7 +66,6 @@ Ext.define('dinoaccess.view.ventas.VisualizarCotizacionFacturar', {
                                                     fieldLabel: 'Nombre / Razon Social',
                                                     flex: 2,
                                                     fieldStyle: 'text-transform:uppercase',
-                                                    labelWidth: 150,
                                                     allowBlank: false,
                                                     editable: true,
                                                     forceSelection : true,
@@ -76,56 +74,71 @@ Ext.define('dinoaccess.view.ventas.VisualizarCotizacionFacturar', {
                                                     displayField: 'nombreper',
                                                     valueField :'idper',
                                                     readOnly:true,
-                                                    fieldStyle :'font-size:20px;'
-                                                },
-                                                {
-
-                                                    xtype: 'datefield',
-                                                    fieldLabel: 'Fecha Venta',
-                                                    value: new Date(),
-                                                    labelAlign: 'right',
-                                                    flex: 0.8,
-                                                    itemId: 'dtFechaVenta',
-                                                    name: 'fechacoti',
-                                                    allowBlank:false
-
-                                                },
-                                                {
-                                                  xtype:'datefield',
-                                                  fieldLabel :'Válido Hasta',
-                                                  labelAlign :'right',
-                                                  editable:false,
-                                                  name : 'fechavalidohasta',
-                                                  value : new Date(),
-                                                  flex: 0.8,
-                                                  readOnly:true,
-                                                  name :'validohasta'
-                                                },
-                                                {
-
-                                                    xtype: 'textfield',
-                                                    fieldLabel: 'Referencia',
-                                                    labelAlign: 'right',
-                                                    flex: 1,
-                                                    itemId: 'txtReferencia',
-                                                    name   : 'vreferencia',
-                                                    hidden : true
-
+                                                    fieldStyle :'font-size:25px;'
                                                 }
 
 
                                             ]
-                                        },
-
-                                    ]
-
-                                },
-                                {
+                                 },
+                                
+                                 {
+                                  
                                     xtype: 'container',
                                     layout: 'hbox',
-                                    defaults: {
-                                        labelWidth: 80,
-                                        //  padding:'0 5 0 0'
+                                    defaults:
+                                    {
+                                       labelWidth: 180,
+                                       labelAlign:'right'
+                                    },
+                                    padding : '5 0 5 0',
+                                    items: [
+                                        {
+
+                                            xtype: 'datefield',
+                                            fieldLabel: 'Fecha Venta',
+                                            value: new Date(),
+                                            labelAlign: 'right',
+                                            flex: 0.8,
+                                            itemId: 'dtFechaVenta',
+                                            name: 'fechacoti',
+                                            allowBlank:false
+
+                                        },
+                                        {
+                                          xtype:'datefield',
+                                          fieldLabel :'Válido Hasta',
+                                          labelAlign :'right',
+                                          editable:false,
+                                          name : 'fechavalidohasta',
+                                          value : new Date(),
+                                          flex: 0.8,
+                                          readOnly:true,
+                                          name :'validohasta'
+                                        },
+                                        {
+
+                                            xtype: 'textfield',
+                                            fieldLabel: 'Referencia',
+                                            labelAlign: 'right',
+                                            flex: 1,
+                                            itemId: 'txtReferencia',
+                                            name   : 'vreferencia',
+                                            hidden : true
+
+                                        }
+
+
+                                    ]
+                         },
+
+                                   
+                                {
+                                    xtype: 'container',
+                                    layout: 'hbox', padding : '5 0 5 0',
+                                    defaults:
+                                    {
+                                       labelWidth: 180,
+                                       labelAlign:'right'
                                     },
                                     items: [{
                                             xtype: 'combo',
@@ -188,41 +201,55 @@ Ext.define('dinoaccess.view.ventas.VisualizarCotizacionFacturar', {
                                             glyph: dinoaccess.util.Glyphs.getGlyph('nuevo'),
                                             handler: 'onClickMantenimiento'
                                         },
-                                        {
-                                          xtype:'textfield',
-                                          fieldLabel :'Serie/Número',
-                                          labelAlign :'right',
-                                          name : 'seriedoc',
-                                          value : '001',
-                                          flex : 0.5,
-                                          allowBlank:false
-                                        },
-                                        {
-                                          xtype:'textfield',
-                                          labelAlign :'right',
-                                          name : 'numerodoc',
-                                          flex : 0.5,
-                                          allowBlank:false
-                                        },
+                                       
                                     ]
 
 
                                 },
                                 {
-                                  xtype:'numberfield',
-                                  padding : '5 5 5 5',
-                                  fieldLabel :'A Cuenta',
-                                  name : 'pagoacuenta',
-                                  value : 0,
-                                  //flex : 2,
-                                  labelWidth : 75
+                                  
+                                    xtype: 'container',
+                                    layout: 'hbox',
+                                    padding : '5 0 5 0',
+                                    defaults:
+                                    {
+                                       labelWidth: 180,
+                                       labelAlign:'right'
+                                    },
+                                    items: [
+                                        {
+                                            xtype:'numberfield',
+                                            fieldLabel :'A Cuenta',
+                                            name : 'pagoacuenta',
+                                            value : 0,
+                                            
+                                          },
+                                          {
+                                              xtype:'textfield',
+                                              fieldLabel :'Serie/Número',
+                                              labelAlign :'right',
+                                              name : 'seriedoc',
+                                              value : '001',
+                                              flex : 0.5,
+                                              allowBlank:false,
+                                              fieldStyle: 'text-align: center;font-size:12px;font-weight:bold; background:#775c80;color:white',
+                                            },
+                                            {
+                                              xtype:'textfield',
+                                              labelAlign :'right',
+                                              name : 'numerodoc',
+                                              flex : 0.5,
+                                              allowBlank:false,
+                                              fieldStyle: 'text-align: center;font-size:12px;font-weight:bold; background:#775c80;color:white',
+                                            },
+          
+                                    ]
                                 },
-
+                               
 
                                 {
                                     xtype: 'fieldset',
                                     columnWidth: 0.1,
-                                    title: 'Detalle',
                                     defaultType: 'textfield',
                                     items: [{
                                             xtype: 'container',
@@ -236,7 +263,6 @@ Ext.define('dinoaccess.view.ventas.VisualizarCotizacionFacturar', {
                                                 {
                                                     xtype: 'container',
                                                     layout: 'hbox',
-                                                    padding: '0 0 5 0',
                                                     items: [
                                                       {
                                                               xtype: 'label',
@@ -272,11 +298,12 @@ Ext.define('dinoaccess.view.ventas.VisualizarCotizacionFacturar', {
                                                         {
                                                           xtype:'container',
                                                           layout:'hbox',
+                                                          padding:'5 0 5 0',
                                                           items:[
                                                             {
                                                               xtype: 'label',
                                                               text: 'Nro. Cotizacion :',
-                                                              width: 120,
+                                                              width: 190,
                                                               height: 23,
                                                               style: {
                                                                   paddingTop: '3px',
@@ -297,6 +324,7 @@ Ext.define('dinoaccess.view.ventas.VisualizarCotizacionFacturar', {
                                                             {
                                                                 xtype: 'checkboxfield',
                                                                 padding: '5',
+                                                                hidden:true,
                                                                 boxLabel: 'Precio incluye el I.G.V.',
                                                                 labelStyle :'font-size:17px;',
                                                                 name: 'incluyeigv',
@@ -345,18 +373,21 @@ Ext.define('dinoaccess.view.ventas.VisualizarCotizacionFacturar', {
                                                         align: 'center',
                                                     },
                                                     {
+                                                        xtype:'numbercolumn',
                                                         text: 'Cantidad',
                                                         dataIndex: 'cantidad',
                                                         flex: 0.5,
                                                         align: 'center',
                                                     },
                                                     {
+                                                        xtype:'numbercolumn',
                                                         text: 'Precio',
                                                         dataIndex: 'precio',
                                                         flex: 0.6,
                                                         align: 'center',
                                                     },
                                                     {
+                                                        xtype:'numbercolumn',
                                                         text: 'Total',
                                                         dataIndex: 'total',
                                                         flex: 0.5,

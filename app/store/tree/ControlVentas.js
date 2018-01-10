@@ -12,21 +12,22 @@ Ext.define('dinoaccess.store.tree.ControlVentas', {
                 titulo : '',
                 children: [
                  {
-                   text: 'Venta / facturar',
+                   text: 'Registro de Ventas',
                    leaf: true,
                    itemId: "wContenedorCotizacionesFacturar",
                    titulo: "Proforma/Facturar",
                    glyph: 'xf022'
 
                  },
-                 {
+              /*   {
                   text: 'Crear Factura',
                   leaf: true,
                   itemId: "wRegistrarFacturaBoleta",
                   titulo: 'Factura / Bolera',
-                  glyph: 'xf022'
+                  glyph: 'xf022',
+                  hidden:true
 
-                },
+                },*/
               
                ]
              },

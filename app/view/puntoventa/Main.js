@@ -21,16 +21,13 @@ Ext.define('dinoaccess.view.puntoventa.Main',{
     url : '',
     initComponent: function () {
        me = this;
-       var _storeDetalle =Ext.create('dinoaccess.store.CajaDetalleVenta');
-       //var _storeFormaPago = Ext.create('dinoaccess.store.FormaPago');
+       st =Ext.create('dinoaccess.store.CajaDetalleVenta');
        Ext.apply(me, {
-           items: me.getItems(_storeDetalle, 1),
-        
+           items: me.getItems(st, 1),
        });
        this.callParent(arguments);
    },
    getItems: function (_storeDetalle, _numeromesa) {
-      //__storeClientes  = Ext.create('dinoaccess.store.Clientes');
       var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
           clicksToMoveEditor: 1,
           autoCancel: false
@@ -185,7 +182,7 @@ Ext.define('dinoaccess.view.puntoventa.Main',{
           },
           {
               xtype: 'panel',
-              flex: 1,
+              flex: 2,
               region: 'center',
               layout: 'fit',
               items: [{

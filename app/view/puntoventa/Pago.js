@@ -40,6 +40,31 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
         padding : '5 0 0 0',
         items:[
           {
+            xtype:'hiddenfield',
+            itemId:'txtTotalVentabk',
+            value : 0
+          },
+          {
+            xtype: 'numberfield',
+            fieldLabel: '<b><div style="font-size:20px;margin-top:16px;">Sub Total </div></b>',
+            itemId: 'txtSubTotalVentaCajaValidar' ,
+            decimalSeparator: '.',
+            readOnly: false,
+            fieldStyle: 'text-align: right;font-size:35px;font-weight:bold; ',
+            enableKeyEvents: true,
+            value : 0,
+        },
+        {
+          xtype: 'numberfield',
+          fieldLabel: '<b><div style="font-size:20px;margin-top:16px;">I.G.V. </div></b>',
+          itemId: 'txtIgvVentaCajaValidar' ,
+          decimalSeparator: '.',
+          readOnly: false,
+          fieldStyle: 'text-align: right;font-size:35px;font-weight:bold; ',
+          enableKeyEvents: true,
+          value : 0,
+        },
+       {
               xtype: 'numberfield',
               fieldLabel: '<b><div style="font-size:20px;margin-top:16px;">Total </div></b>',
               itemId: 'txtTotalVentaCajaValidar' ,
@@ -59,7 +84,8 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
               value : 0,
               listeners:{
                 keyup:'onKeyPagoAcuenta'
-              }
+              },
+              hidden:true
           },
           {
               xtype: 'numberfield',
@@ -69,7 +95,10 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
               readOnly: true,
               value : 0,
               fieldStyle: 'text-align: right;font-size:35px;font-weight:bold; ',
-          }
+              hidden:true
+          },
+
+        
 
         ]
       };
@@ -82,17 +111,19 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
             type:'hbox',
             align :'stretch'
           },
-          //padding : 100,
           items:[
             {
                 xtype:'radiogroup',
                 vertical: true,
                 flex: 1,
                 items:[
-                  {boxLabel:'NOTA',name: 'dv',inputValue:'3',value:true},
-                  {boxLabel:'BOLETA',name: 'dv',inputValue:'2'},
-                  {boxLabel:'FACTURA',name: 'dv',inputValue:'1'}
-                ]
+                  {boxLabel:'BOLETA',name: 'dv',inputValue:'2',value:true},
+                  {boxLabel:'FACTURA',name: 'dv',inputValue:'1'},
+                  {boxLabel:'NOTA',name: 'dv',inputValue:'3'},
+                ],
+                listeners:{
+                  change  :'onActivateRadio'
+                }
             },
             {
                 xtype:'label',
@@ -113,7 +144,6 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
               xtype:'combo',
               flex: 1,
               labelAlign:'right',
-              //fieldSt yle : 'font-size:18px;font-weight:bold; text-transform:uppercase;',//
               store  :_storeFormaPago,
               valueField : 'idfopag',
               displayField : 'descripcion',
@@ -130,6 +160,7 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
                 border: true,
                 width: 90,
                 height: 25,
+                hidden:true,
                 style: {
                     background: '#775c80',
                     color: 'white',
@@ -140,16 +171,18 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
             },
             {
               xtype:'textfield',
-              allowBlank :false,
+              allowBlank :true,
               flex: 0.5,
               value : '001',
-              itemId : 'txtSerieDoc'
+              itemId : 'txtSerieDoc',
+              hidden:true,
             },
             {
               xtype:'textfield',
-              allowBlank :false,
+              allowBlank :true,
               flex: 0.5,
-              itemId : 'txtNumeroDoc'
+              itemId : 'txtNumeroDoc',
+              hidden:true,
             }
           ]
       };

@@ -24,7 +24,6 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizacionesFacturar', {
     controller: 'acciones-regcotizacionfacturar',
     initComponent: function () {
         var storeCotiFacturar    = Ext.create('dinoaccess.store.CotizacionesFacturar');
-
         var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
             clicksToMoveEditor: 1,
             autoCancel: false
@@ -34,23 +33,9 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizacionesFacturar', {
             items: [
               me.getListadoCotizacionesAfacturar(storeCotiFacturar,rowEditing),
             ],
-            //bbar:me.getBarraTotales()
         });
         this.callParent();
     },
-    getBarraTotales:function(){
-      return obj = [
-          '->',
-          {
-            xtype:'label',
-            text :'TOTAL'
-          },{
-            xtype:'numberfield',
-            padding:'0 50 0 15'
-          }
-      ];
-    },
-
     getListadoCotizacionesAfacturar:function(storeCotiFacturar,rowEditing){
       return obj = {
         xtype: 'panel',
@@ -125,7 +110,7 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizacionesFacturar', {
                 {
                     xtype: 'numbercolumn',
                     text: 'Total',
-                    dataIndex: 'totalcoti',
+                    dataIndex: 'valtotalcont',
                     flex: 0.7,
                     align: 'right'
                 },

@@ -246,9 +246,8 @@ Ext.define('dinoaccess.model.CotizacionesFacturar', {
         { name: 'formapago', type: 'string' },
         { name: 'seriedoc', type: 'string' },
         { name: 'numerodoc', type: 'string' },
-        { name: 'idguia', type: 'integer' }
-
-
+        { name: 'idguia', type: 'integer' },
+        { name: 'documentoventa', type: 'integer' }
     ]
 });
 

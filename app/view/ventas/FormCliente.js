@@ -83,29 +83,7 @@ Ext.define('dinoaccess.view.ventas.FormCliente', {
 
             },
 
-            {
-              xtype:'fieldcontainer',
-              layout:'hbox',
-                hidden:true,
-              items:[
-                {
-                    xtype: 'combo',
-                    name: 'iddocidentidad',
-                    store: storeTipoDoc,
-                    queryMode: 'local',
-                    displayField: 'descripcion',
-                    valueField: 'idtipdoc',
-                    value: 1,
-                    editable: false,
-                    flex: 1.5
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'numdocper',
-                    flex:1
-                },
-              ]
-            },
+           
          
             {
                 xtype: 'label',
@@ -130,6 +108,29 @@ Ext.define('dinoaccess.view.ventas.FormCliente', {
                 fieldStyle:'text-transform:uppercase;font-size:20px;',
                 //readOnly: true
             },
+            {
+                xtype:'fieldcontainer',
+                layout:'hbox',
+                hidden:false,
+                items:[
+                  {
+                      xtype: 'combo',
+                      name: 'iddocidentidad',
+                      store: storeTipoDoc,
+                      queryMode: 'local',
+                      displayField: 'descripcion',
+                      valueField: 'idtipdoc',
+                      value: 1,
+                      editable: false,
+                      flex: 1.5
+                  },
+                  {
+                      xtype: 'textfield',
+                      name: 'numdocper',
+                      flex:1
+                  },
+                ]
+              },
             {
                 xtype: 'label',
                 text: 'Número R.U.C'

@@ -456,18 +456,19 @@ class ImpresionController extends Controller
             $pdf->MultiCell($wg,$in, pinta($dataEmpresa->direccion),0,'L');
             $pdf->MultiCell($wg,$in,"Correo: ".pinta($dataEmpresa->correo),0,'L');
             $pdf->MultiCell($wg,$in,pinta("Teléfono: ".$dataEmpresa->telefono),'B','L');
-            $pdf->Image('../../images/pc1.jpg', 10, 35, 40);
+            $pdf->Image('../../images/pc1.jpg', 10, 35, 48);
             $pdf->Image('../../images/teclado.jpg', 155, 35, 40);
-            $pdf->Image('../../images/audifonos.jpg', 85, 35, 40);
+            $pdf->Image('../../images/audifonos.jpg', 85, 35, 48);
       
-            $pdf->Ln(45);
-      
+            $pdf->Ln(60);
+
             $pdf->SetFont($font,'B',20);
             $pdf->MultiCell(186,$in,pinta("PROFORMA: ".$dataCotizacion->ctcodigo),0,'C');
       
             $pdf->Ln(5);
       
             $fila = $pdf->GetY();
+            $tam = 9;
             $pdf->SetFont($font,'B',$tam);
             $pdf->MultiCell(50,$in,"Fecha de presupuesto: ",0,'L');
             $pdf->SetXY(60,$fila);
@@ -505,7 +506,7 @@ class ImpresionController extends Controller
       
             $total_cotizacion = $total_sin_imp + $impuestos;
             $pdf->Ln(1);
-            if($dataCotizacion->incluyeigv == 1){
+            if($dataCotizacion->iddocumento >= 2 ){
               $pdf->Cell(165,5,pinta('TOTAL'),0,0,'R');
               $pdf->Cell(22,5,pinta(number_format($total_cotizacion, 2, '.',' ')),'T',1,'R');
             }else{
@@ -540,50 +541,51 @@ class ImpresionController extends Controller
             $dataEmpresa =  json_decode(Empresa::listar())->data[0];
             $dataFacturacion =  json_decode(Facturacion::datosFacturacionCliente($idfactura))->data[0];
             $dataDetalle =  json_decode(Facturacion::detalleFacturacion($idfactura))->data;
-      
+            $nombreRazon="DINO ACCESS TECNOLOGY";
             $pdf = new fpdf('P');
             $borde = 0;
-            $pdf->SetMargins(0, 0 , 0);
+            $pdf->SetMargins(0,0, 0 , 0);
             $pdf->AddPage();
-            $pdf->setXY(6, 5);
-            $pdf->setFont("Arial", "B", 12);
-            $pdf->Image('../../images/logo.jpg', 10, -10, 60);
-            $pdf->Ln(30);
-            $pdf->setX(8);
-            $pdf->setFont("Arial", "", 8);
-            $pdf->Cell(12 , 4,"Direccion :  ", $borde, 0, "C");
-            $pdf->setFont("Arial", "", 7);
-            $pdf->Cell(65, 4, $dataEmpresa->direccion, $borde, 2, "L");
-            $pdf->setFont("Arial", "", 7);
+             // $pdf->Image('../../images/logo.jpg', 10, -10, 60);
+            $pdf->Ln(10);
             $pdf->setX(6);
-            $pdf->Cell(10, 4,"R.U.C : ", $borde, 0, "C");
-            $pdf->setFont("Arial", "", 8);
-            $pdf->Cell(65, 4, $dataEmpresa->ruc, $borde, 2, "L");
-            $pdf->setX(8);
-              $pdf->Cell(10,4,"Telefonos :",$borde,0,"C");
+            $pdf->setFont("Arial", "B", 9);
+            $pdf->Cell(65, 4,"*** $nombreRazon ***", 0, 1, "C");
             $pdf->setX(6);
-              $pdf->Cell(80,4,$dataEmpresa->telefono,0,1,"C");
-      
-              $pdf->setX(6);
-          $pdf->setFont("Arial","",7);
-          $pdf->Cell(35, 5, "AUTORIZACION #MAQ. REG. : ", $borde, 0, "C");
-          $pdf->setFont("Arial", "", 8);
-          $pdf->Cell(65, 5, '', $borde, 2, "L");
-      
-                  $pdf->setX(6);
-              $pdf->setFont("Arial", "", 8);
-              $pdf->Cell(65, 5, substr($dataFacturacion->documento,0,1).$dataFacturacion->seriedoc.'-'.$dataFacturacion->numerodoc , $borde, 2, "C");
-          $pdf->Ln(5);
+            $pdf->Cell(65, 4,"-- R.U.C : 10316699656 --", $borde, 1, "C");
+            $pdf->setFont("Arial", "", 8);
+            $pdf->Ln(1);
+            $pdf->setX(6);
+            $pdf->MultiCell(65, 4, trim($dataEmpresa->direccion),0, "J");
+            $pdf->setX(6);
+            $pdf->Cell(20,4,"TELEFONOS :",0,0,"L");
+            $pdf->Cell(50,4,$dataEmpresa->telefono,0,1,"L");
+            $pdf->setX(6);
+            $pdf->setFont("Arial","",8);
+            $pdf->Cell(35, 5, "MAQUINA : FFCF212094", $borde, 1, "L");
+            $pdf->setX(6);
+            $pdf->Cell(35, 5, "FECHA   :  ".$dataFacturacion->fecha, $borde, 1, "L");
+            $pdf->setX(6);
+            $pdf->Cell(35, 5, "HORA    :  ".$dataFacturacion->hora, $borde, 1, "L");
+            
+            $pdf->setX(6);
+            $pdf->setFont("Arial", "", 8);
+            if(substr($dataFacturacion->documento,0,1)=='B'){
+              $pdf->Cell(65, 5,'** BOLETA ELECTRONICA :  '. $dataFacturacion->seriedoc.'-'.$dataFacturacion->numerodoc .' **' , 0, 2, "C");
+            }else{
+              $pdf->Cell(65, 5,'** FACTURA ELECTRONICA :  '. $dataFacturacion->seriedoc.'-'.$dataFacturacion->numerodoc .' **', 0, 2, "C");
+            }
+          $pdf->Ln(1);
           $pdf->setX(6);
       
           $pdf->setFont("Arial", "", 7);
-          $pdf->Cell(38, 5, "DESCRIPCION", $borde, 0, "L");
-          $pdf->Cell(7, 5, "CANT", $borde, 0, "L");
+          $pdf->Cell(32, 5, "DESCRIPCION", $borde, 0, "L");
+          $pdf->Cell(10, 5, "CANT", $borde, 0, "L");
           $pdf->Cell(10, 5, "P.UNI.", $borde, 0, "R");
       
           $pdf->Cell(10, 5, "IMP.", $borde, 2, "R");
           $pdf->setX(6);
-          $pdf->Cell(80, 5, "-------------------------------------------------------------------------------------------------", $borde, 2, "L");
+          $pdf->Cell(80, 5,'===================================================', $borde, 2, "L");
           //$pdf->Ln(5);
           $totalventa = 0;
           foreach ($dataDetalle as $row) {
@@ -631,19 +633,22 @@ class ImpresionController extends Controller
             $pdf->setFont("Arial", "", 10);
             $pdf->Cell(14, 5, number_format($totalventa + ($totalventa * 0.18), 2, ".", ","), $borde, 2, "R");
           }
-            
-
-
-           
+          $pdf->setFont("Arial", "", 7);
             $pdf->setX(6);
-            $pdf->Cell(80, 5, "----------------------------------------------------------------------", $borde, 2, "L");
+            $pdf->Cell(80, 5, '====================================================', $borde, 2, "L");
             $pdf->setFont("Arial", "", 9);
-            $pdf->Cell(20, 5, "Cliente : ", $borde, 0, "L");
-            $pdf->setFont("Arial", "", 10);
+            $pdf->Cell(20, 5, "CLIENTE : ", $borde, 0, "L");
+            $pdf->setFont("Arial", "", 9);
             $pdf->Cell(65, 5, $dataFacturacion->nomcompleto, $borde, 2, "L");
             $pdf->setX(6);
+            $pdf->Cell(20, 5, "RUC/DNI : ", $borde, 0, "L");
+            $pdf->setFont("Arial", "", 9);
+            $pdf->Cell(65, 5, $dataFacturacion->ruc_dni, $borde, 2, "L");
+            $pdf->setX(6);
+            $pdf->Ln();
             $pdf->setFont("Arial", "B", 8);
-            $pdf->MultiCell(80, 5, "GRACIAS POR SU VISITA VUELVA PRONTO !!.", 0, "C");
+            $pdf->setX(6);
+            $pdf->MultiCell(65, 5, "*** GRACIAS POR SU PREFERENCIA ***.",0, "C");
             $pdf->Ln(3);
             $pdf->output();
           }
