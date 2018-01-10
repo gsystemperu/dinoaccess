@@ -158,11 +158,11 @@ Ext.define('dinoaccess.view.ventas.AccionesRegCotizacion', {
             Ext.util.Format.number( _rec.get('valigvcont'), "0,000.00")
           );
           Ext.ComponentQuery.query('#Subtotalventas')[0].setValue(
-          Ext.util.Format.number( _rec.get('valventacont'), "0,000.00")
-        );
+            Ext.util.Format.number( _rec.get('valventacont'), "0,000.00")
+          );
           Ext.ComponentQuery.query('#TotalGeneral')[0].setValue(
-          Ext.util.Format.number( _rec.get('valtotalcont'), "0,000.00")
-        );
+            Ext.util.Format.number( _rec.get('valtotalcont'), "0,000.00")
+          );
         }
       });
 
@@ -727,26 +727,25 @@ Ext.define('dinoaccess.view.ventas.AccionesRegCotizacion', {
     _storeDet.load();
   },
   onChangeCambiarDocumento:function(cbo,nu,an){
-    t=0;
-    s = this.lookupReference('dgvDetalleVenta').getStore();
-    s.each(function (r) {
+      t = 0;
+      s = this.lookupReference('dgvDetalleVenta').getStore();
+      s.each(function (r) {
           t = t + r.get('total');
       });
      // Factura
      if(nu==1)
      {
-      
-        i = t*0.18;
+        i = t - (t / 1.18);
         Ext.ComponentQuery.query('#Subtotalventas')[0].setHidden(false);
         Ext.ComponentQuery.query('#igvventas')[0].setHidden(false);
         Ext.ComponentQuery.query('#Subtotalventas')[0].setValue( 
-          Ext.util.Format.number( t.toFixed(2), "0,000.00")
+          Ext.util.Format.number( t.toFixed(2) / 1.18 , "0,000.00")
         );
         Ext.ComponentQuery.query('#igvventas')[0].setValue(
-          Ext.util.Format.number( i.toFixed(2), "0,000.00")
+          Ext.util.Format.number( i.toFixed(2) , "0,000.00")
         );
         Ext.ComponentQuery.query('#TotalGeneral')[0].setValue(
-          Ext.util.Format.number( i+t, "0,000.00")
+          Ext.util.Format.number( t, "0,000.00")
         );
      }else{
         Ext.ComponentQuery.query('#Subtotalventas')[0].setHidden(true);

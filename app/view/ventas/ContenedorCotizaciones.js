@@ -1,7 +1,3 @@
-
-
-
-
 Ext.define('dinoaccess.view.ventas.ContenedorCotizaciones', {
   extend: 'Ext.panel.Panel',
   xtype: 'wContenedorCotizaciones',
