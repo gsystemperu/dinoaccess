@@ -11,6 +11,18 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
          me = this;
          Ext.apply(this,{
             items:[
+              {
+                xtype:'label',
+                text : '** Importante : Los precios estan incluido el IGV.',
+                style: {
+                  background: '#775c80',
+                  color: 'white',
+                  textAlign: 'left',
+                  fontWeight: 'bold',
+                  fontSize: '13px'
+                },
+                padding : '5 5 5 5'
+              },
               me.getPanelPago(),
               me.getPanelTotales()
             ],
@@ -45,7 +57,7 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
             value : 0
           },
           {
-            xtype: 'numberfield',
+            xtype: 'textfield',
             fieldLabel: '<b><div style="font-size:20px;margin-top:16px;">Sub Total </div></b>',
             itemId: 'txtSubTotalVentaCajaValidar' ,
             decimalSeparator: '.',
@@ -55,7 +67,7 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
             value : 0,
         },
         {
-          xtype: 'numberfield',
+          xtype: 'textfield',
           fieldLabel: '<b><div style="font-size:20px;margin-top:16px;">I.G.V. </div></b>',
           itemId: 'txtIgvVentaCajaValidar' ,
           decimalSeparator: '.',
@@ -65,7 +77,7 @@ Ext.define('dinoaccess.view.puntoventa.Pago',{
           value : 0,
         },
        {
-              xtype: 'numberfield',
+              xtype: 'textfield',
               fieldLabel: '<b><div style="font-size:20px;margin-top:16px;">Total </div></b>',
               itemId: 'txtTotalVentaCajaValidar' ,
               decimalSeparator: '.',

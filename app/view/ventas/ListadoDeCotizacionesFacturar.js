@@ -9,7 +9,8 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizacionesFacturar', {
         'Ext.form.field.*',
         'Ext.panel.Panel',
         'dinoaccess.view.ventas.AccionesRegCotizacionesFacturar',
-        'dinoaccess.store.DataTemp'
+        'dinoaccess.store.DataTemp',
+        'Ext.util.TaskRunner'
     ],
     layout: {
         type: 'fit',
@@ -35,6 +36,13 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizacionesFacturar', {
             ],
         });
         this.callParent();
+        r = new Ext.util.TaskRunner();
+            t = r.start({
+            run: function(st){
+                storeCotiFacturar.reload();
+            },
+            interval: 10000
+        });
     },
     getListadoCotizacionesAfacturar:function(storeCotiFacturar,rowEditing){
       return obj = {
@@ -53,6 +61,9 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizacionesFacturar', {
                 'Ext.grid.selection.SpreadsheetModel',
                 'Ext.grid.plugin.Clipboard'
             ],
+            /*viewConfig: {
+                loadMask: false
+            },*/
             emptyText: 'NO HAY REGISTROS PARA MOSTRAR SEGUN EL RANGO DE FECHAS',
             columns: [
                {xtype: 'rownumberer'},
@@ -72,12 +83,6 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizacionesFacturar', {
                         text: 'Doc. Interno',
                         dataIndex: 'docinterno',
                         flex: 0.5,
-                        align: 'center'
-                },
-                {
-                        text: 'Tipo',
-                        dataIndex: 'tipodoc',
-                        flex: 0.3,
                         align: 'center'
                 },
                 {

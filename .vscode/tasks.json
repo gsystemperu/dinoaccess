@@ -1,0 +1,17 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Sencha app Build",
+            "type": "shell",
+            "command": "sencha app build"
+        },{
+            "label": "Subir a Server",
+            "type": "shell",
+            "command": "sudo sh /var/www/html/desplegar_dino.sh"
+
+        }
+    ]
+}

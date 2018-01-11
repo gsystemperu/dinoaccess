@@ -13,7 +13,6 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizaciones', {
     ],
     layout: {
         type: 'vbox',
-        //pack: 'start',
         align: 'stretch'
     },
     bodyPadding: 0,

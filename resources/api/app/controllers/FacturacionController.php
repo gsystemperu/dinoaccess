@@ -119,7 +119,6 @@ class FacturacionController extends Controller
            $vAcuenta      = $request->getPost('acuenta');
 
            $data = array($vId,$vIdCoti,'',$vIdCliente,$vUsuario,$vJsonDetalle, $vFormaPago,$vModoEntrega,$vDocVenta,true,'',$vSerieDoc,$vNumeroDoc,$vAcuenta);
-
            $jsonData             = Facturacion::guardarPuntoVentaPago($data);
            $response->setContentType('application/json', 'UTF-8');
            $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));

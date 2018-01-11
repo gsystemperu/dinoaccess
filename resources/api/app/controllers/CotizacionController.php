@@ -333,8 +333,15 @@ class CotizacionController extends Controller
 
          }else{
            $vIdCotizacion   = $request->getPost('vIdCotizacion');
-           $data = array($vIdCotizacion);
-           $jsonData             = Cotizacion::detalleCotizacionVista($data);
+           $vIdFacturacion   = $request->getPost('vIdFacturacion');
+           
+           if($vIdCotizacion){
+            $data = array($vIdCotizacion);
+            $jsonData             = Cotizacion::detalleCotizacionVista($data);
+           }else{
+            $data = array($vIdFacturacion);
+            $jsonData             = Facturacion::detalleFacturacion($data);
+           }
            $response->setContentType('application/json', 'UTF-8');
            $response->setContent($jsonData);
            return $response;

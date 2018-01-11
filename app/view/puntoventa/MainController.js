@@ -119,15 +119,15 @@ Ext.define('dinoaccess.view.puntoventa.MainController', {
 
          __radios = Ext.ComponentQuery.query('radio');
          if(__radios[0].value){
-            __tipodoc = 3;
+            __tipodoc = 2;
          }
          if(__radios[1].value){
-           __tipodoc = 2;
-         }
-         if(__radios[2].value){
            __tipodoc = 1;
          }
-
+         if(__radios[2].value){
+           __tipodoc = 3;
+         }
+         __form.mask('..enviando');
          Ext.Ajax.request({
              url : dinoaccess.util.Rutas.facturacionGuardarPagoPuntoVenta,
              params:{
@@ -147,14 +147,13 @@ Ext.define('dinoaccess.view.puntoventa.MainController', {
                 if(__data.error!=0){
                         Ext.ComponentQuery.query('#wPuntoVentaPago')[0].reset();
                         Ext.ComponentQuery.query('#dgvDetalleCaja')[0].getStore().removeAll();
+                        __form.unmask();
                         dinoaccess.util.Util.showToast("GUARDADO");
-                        Ext.ComponentQuery.query('#dvListaProductos')[0].getStore().load();
-                        var me =  Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
-                        var l = me.getLayout();
+                        me =  Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
+                        l = me.getLayout();
                         l.setActiveItem(0);
                         Ext.ComponentQuery.query('#txtTotalVentaCaja')[0].setValue('0');
-                       
-                        var objrpt = window.open( dinoaccess.util.Rutas.imprimirTicket+ 'id='+ __data.error, "", "width=700,height=900");
+                        window.open( dinoaccess.util.Rutas.imprimirTicket+ 'id='+ __data.error, "", "width=700,height=900");
                         
                         // Impresion Matricial
                         //var objrpt = window.open( dinoaccess.util.Rutas.rptImprimirNota+ 
@@ -175,18 +174,16 @@ Ext.define('dinoaccess.view.puntoventa.MainController', {
        }
      },
      onActivateRadio:function(obj, newValue, oldValue,e){
-      __total   = Ext.ComponentQuery.query('#txtTotalVentabk')[0].getValue();
-      if(newValue.dv == 1){
-        Ext.ComponentQuery.query('#txtSubTotalVentaCajaValidar')[0].setValue(__total);
-        Ext.ComponentQuery.query('#txtIgvVentaCajaValidar')[0].setValue(__total * 0.18);
-        Ext.ComponentQuery.query('#txtTotalVentaCajaValidar')[0].setValue(__total + (__total * 0.18));
-       
-        }else{
-        Ext.ComponentQuery.query('#txtSubTotalVentaCajaValidar')[0].setValue(__total);
-        Ext.ComponentQuery.query('#txtIgvVentaCajaValidar')[0].setValue(0);
-        Ext.ComponentQuery.query('#txtTotalVentaCajaValidar')[0].setValue(__total);
-       
-        }
+      __valorVenta   = Ext.ComponentQuery.query('#txtTotalVentabk')[0].getValue();
+      Ext.ComponentQuery.query('#txtTotalVentaCajaValidar')[0].setValue(
+        Ext.util.Format.number( __valorVenta, "0,000.00")
+      );
+      Ext.ComponentQuery.query('#txtSubTotalVentaCajaValidar')[0].setValue(
+        Ext.util.Format.number( __valorVenta / 1.18 , "0,000.00")
+      );
+      Ext.ComponentQuery.query('#txtIgvVentaCajaValidar')[0].setValue(
+        Ext.util.Format.number(__valorVenta - (__valorVenta / 1.18), "0,000.00") 
+      );
      }
 
 });

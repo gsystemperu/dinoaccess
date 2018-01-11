@@ -18,11 +18,12 @@ Ext.define('dinoaccess.view.puntoventa.AccionesContenedorMain', {
           Ext.util.Format.number( __valorVenta.toFixed(2), "0,000.00")
         );
         Ext.ComponentQuery.query('#txtSubTotalVentaCajaValidar')[0].setValue(
-          Ext.util.Format.number( __valorVenta.toFixed(2), "0,000.00")
+          Ext.util.Format.number( __valorVenta / 1.18 , "0,000.00")
         );
-        Ext.ComponentQuery.query('#txtSaldoVentaCajaValidar')[0].setValue(
-          __valorVenta
+        Ext.ComponentQuery.query('#txtIgvVentaCajaValidar')[0].setValue(
+          Ext.util.Format.number(__valorVenta - (__valorVenta / 1.18), "0,000.00") 
         );
+
         Ext.ComponentQuery.query('#cboCliente')[0].setHidden(false);
         Ext.ComponentQuery.query('#btnNuevoClientePdv')[0].setHidden(false);
         Ext.ComponentQuery.query('#btnVentasPdv')[0].setDisabled(false);
@@ -77,6 +78,7 @@ Ext.define('dinoaccess.view.puntoventa.AccionesContenedorMain', {
           nombre : '$%76853()='
         }
       });
+      Ext.ComponentQuery.query('#txtBuscarCodigoProd')[0].focus(false, 200);
     },
 
    

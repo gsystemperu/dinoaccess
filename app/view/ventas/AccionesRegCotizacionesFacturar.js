@@ -94,11 +94,11 @@ Ext.define('dinoaccess.view.ventas.AccionesRegCotizacionesFacturar', {
       Ext.ComponentQuery.query('#frmVisualizarCotizacionFacturar')[0].reset();
       Ext.ComponentQuery.query('#frmVisualizarCotizacionFacturar')[0].loadRecord(r);
       Ext.ComponentQuery.query('#dgvDetalleVentaFacturarVisualizar')[0].getStore().removeAll();
-
       Ext.Ajax.request({
         url: dinoaccess.util.Rutas.cotizacionDetalle,
         params: {
-          vIdCotizacion: r.get('idcoti')
+          vIdCotizacion : r.get('idcoti'),
+          vIdFacturacion :r.get('idfacturacion') 
         },
         success: function (response) {
           d = Ext.JSON.decode(response.responseText);
@@ -200,33 +200,19 @@ Ext.define('dinoaccess.view.ventas.AccionesRegCotizacionesFacturar', {
     __objSubTotal = this.lookupReference('Subtotalventasfacturacion');
     __objTotal = this.lookupReference('TotalGeneralfacturacion');
 
-    var store = Ext.ComponentQuery.query('#dgvDetalleVentaFacturar')[0].getStore();
-    var _tot = 0;
-    var _igv = 0;
+    store = Ext.ComponentQuery.query('#dgvDetalleVentaFacturar')[0].getStore();
+    t = 0;
     store.each(function (record) {
-      _tot = _tot + record.get('total');
+      t = t + record.get('total');
     });
-    __objSubTotal.setValue(_tot.toFixed(2));
 
-    if (__objChk.getValue()) {
-      var _igv = 0;
-    } else {
-      var _igv = _tot * 0.18;
-    }
-    __objSubTotal.setValue(
-      Ext.util.Format.number(_tot.toFixed(2), "0,000.00")
+    Ext.ComponentQuery.query('#igvventasfacturacion')[0].setValue(
+      Ext.util.Format.number(t - ( t / 1.18 ), "0,000.00")
     );
-    __objIgv.setValue(
-      Ext.util.Format.number(_igv.toFixed(2), "0,000.00")
+    Ext.ComponentQuery.query('#Subtotalventasfacturacion')[0].setValue(
+      Ext.util.Format.number(t / 1.18, "0,000.00")
     );
-    //Ext.ComponentQuery.query('#txtIgvventas')[0].setValue(_igv.toFixed(2));
-    var _totven = 0;
-    _totven = _tot + _igv;
-    __objTotal.setValue(
-      Ext.util.Format.number(_totven.toFixed(2), "0,000.00")
-    );
-
-
+    Ext.ComponentQuery.query('#TotalGeneralfacturacion')[0].setValue(Ext.util.Format.number(t, "0,000.00"));
   },
   onSelectCambiarDocumento: function (combo, record, eOpts) {
     t = 0;
@@ -235,7 +221,7 @@ Ext.define('dinoaccess.view.ventas.AccionesRegCotizacionesFacturar', {
       t = t + r.get('total');
     });
     // Factura
-    if (record.get('id') == 1) {
+    /*if (record.get('id') == 1) {
       i = t * 0.18;
       Ext.ComponentQuery.query('#Subtotalventasfacturacion')[0].setValue(
         Ext.util.Format.number(t.toFixed(2), "0,000.00")
@@ -246,7 +232,7 @@ Ext.define('dinoaccess.view.ventas.AccionesRegCotizacionesFacturar', {
       Ext.ComponentQuery.query('#TotalGeneralfacturacion')[0].setValue(
         Ext.util.Format.number(i + t, "0,000.00")
       );
-    } else {
+    } else {*/
       Ext.ComponentQuery.query('#igvventasfacturacion')[0].setValue(
         Ext.util.Format.number(t - ( t / 1.18 ), "0,000.00")
       );
@@ -255,7 +241,7 @@ Ext.define('dinoaccess.view.ventas.AccionesRegCotizacionesFacturar', {
       );
 
       Ext.ComponentQuery.query('#TotalGeneralfacturacion')[0].setValue(Ext.util.Format.number(t, "0,000.00"));
-    }
+    //}
   }
 
 });

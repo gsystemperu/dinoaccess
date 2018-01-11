@@ -42,6 +42,7 @@ Ext.define('dinoaccess.view.puntoventa.ContenedorMain', {
     });
     this.callParent();
   },
+
   getBotonesERP:function(){
     __storeClientes  = Ext.create('dinoaccess.store.Clientes');
     return obj = [
@@ -54,6 +55,8 @@ Ext.define('dinoaccess.view.puntoventa.ContenedorMain', {
         displayField : 'nombreper',
         queryMode : 'local',
         itemId :'cboCliente',
+        typeAhead :true,
+        minChars : 2,
         editable:true,
         allowBlank:false,
         emptyText: 'SELECCIONAR AL CLIENTE',

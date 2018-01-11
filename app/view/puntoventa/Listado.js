@@ -109,6 +109,7 @@ Ext.define('dinoaccess.view.puntoventa.Listado',{
                  reference: 'txtBuscarCodigoProd',
                  itemId: 'txtBuscarCodigoProd',
                  flex: 1,
+                 hasfocus:true,
                  enableKeyEvents: true,
                  listeners:{
                    keyup:'onKeyUpBuscarProducto'
