@@ -550,7 +550,7 @@ class ImpresionController extends Controller
              // $pdf->Image('../../images/logo.jpg', 10, -10, 60);
             $pdf->Ln(10);
             $pdf->setX(10);
-            $pdf->setFont("Arial", "B", 9);
+            $pdf->setFont("Arial", "B", 12);
             $pdf->Cell(65, 4,"*** $nombreRazon ***", 0, 1, "C");
             $pdf->setX(10);
             $pdf->Cell(65, 4,"-- R.U.C : 10316699656 --", $borde, 1, "C");
