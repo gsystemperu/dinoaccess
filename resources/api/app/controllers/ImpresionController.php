@@ -213,20 +213,96 @@ class ImpresionController extends Controller
 
 
     public function reporteVentasAction(){
-      $request        = new Phalcon\Http\Request();
+
+      $request    = new Phalcon\Http\Request();
+        $desde = $request->get('desde');
+        $hasta  = $request->get('hasta');
+        $data   = array($desde,$hasta);
+        $pdf = new fpdf('P');
+        $pdf->SetXY(15,7);
+        $pdf->Ln();
+        //$pdf->SetTextColor(255,255,255);
+        //$pdf->SetFillColor(0, 0, 255);
+        $pdf->AddPage();
+        $pdf->SetFont('Arial','B',13);
+
+        $pdf->Cell(0,5,'REPORTE DE VENTAS DIARIAS',0,1,'C');
+        $pdf->Ln();
+        $pdf->SetFont('Arial','B',8);
+
+        $pdf->Cell(10,7,'Nro.',1,0,'C');
+        $pdf->Cell(20,7,'FECHA',1,0,'C');
+        $pdf->Cell(60,7,'CLIENTE',1,0,'C');
+        $pdf->Cell(20,7,'DOCUMENTO',1,0,'C');
+        $pdf->Cell(20,7,'FORMA PAGO',1,0,'C');
+        $pdf->Cell(30,7,'TOTAL',1,0,'C');
+        $pdf->Cell(35,7,'ESTADO',1,0,'C');
+        $pdf->Ln();
+
+        $jsonData  =  json_decode(Cotizacion::listarCotizacionesParaFacturarPorFechas($data));
+        $i = 1;
+        $total = 0;
+        $anulados = 0;
+        $tarjeta=0;
+        $totanulados=0;
+        $totaltarjeta=0;
+        foreach($jsonData->data as $mydata)
+        {
+          $pdf->Cell(10,5,$i++,1,0,'C');
+          $pdf->Cell(20,5,$mydata->fechafact,1,0,'C');
+          $pdf->Cell(60,5, utf8_decode( $mydata->nomcompleto),1,0,'L');
+          $pdf->Cell(20,5, utf8_decode( $mydata->docinterno),1,0,'L');
+          $pdf->Cell(20,5, utf8_decode( $mydata->formapago),1,0,'L');
+          $pdf->Cell(30,5,number_format($mydata->valtotalcont, 2, '.', ' '),1,0,'R');
+          $pdf->Cell(35,5,$mydata->descripcion,1,1,'C');
+          $total +=  $mydata->valtotalcont;
+ 
+          if($mydata->descripcion=='VD ANULADO' || $mydata->descripcion=='CT ANULADA'  ){
+             $anulados +=1;
+             $totanulados += $mydata->valtotalcont;
+           }
+
+          if(($mydata->formapago=='MASTERCAR' || $mydata->formapago=='VISA') &&
+              ($mydata->descripcion!='VD ANULADO' || $mydata->descripcion!='CT ANULADA')   ){
+            $tarjeta +=1;
+            $totaltarjeta += $mydata->valtotalcont;
+          }
+        }
+        $pdf->Ln();
+        $pdf->SetFont('Arial','B',8);
+        $pdf->Cell(40,5,'Conteno Atenciones ',1,0,'L');
+        $pdf->Cell(20,5,$i-1,1,1,'C');
+        $pdf->Cell(40,5,'Anulados ',1,0,'L');
+        $pdf->Cell(20,5,$anulados,1,1,'C');
+        $pdf->Cell(40,5,'Tarjeta ',1,0,'L');
+        $pdf->Cell(20,5,$tarjeta,1,1,'C');
+        $pdf->Cell(40,5,'Pagados  ',1,0,'L');
+        $pdf->Cell(20,5,($i-1)-$anulados,1,1,'C');
+        $pdf->Cell(40,5,'Total Vendido ',1,0,'L');
+        $pdf->Cell(20,5, number_format( $total, 2, '.', ' '),1,1,'C');
+        $pdf->Cell(40,5,'Total Tarjeta ',1,0,'L');
+        $pdf->Cell(20,5, number_format( $totaltarjeta, 2, '.', ' '),1,1,'C');
+        $pdf->Cell(40,5,'Total Ganado',1,0,'L');
+        $pdf->Cell(20,5,number_format( ($total - $totanulados - $totaltarjeta ), 2, '.', ' '),1,1,'C');
+        $pdf->Ln(10);
+        $pdf->Output();
+
+
+
+      /*$request        = new Phalcon\Http\Request();
       $response       = new \Phalcon\Http\Response();
       $desde = $request->get('desde');
       $hasta = $request->get('hasta');
       $rango = array($desde,$hasta);
       $listaCots =  json_decode(Cotizacion::listarCotizacionesParaFacturarPorFechas($rango))->data;
-
+      //print_r($listaCots);die();
       // ========== FPDF ==========  //
-      $pdf = new exFPDF('P','mm','A4');
+      $pdf = new fpdf('P','mm','A4');
 
       $wg = 188 ;//Ancho total
       $in = 6; //Interlineado
       $font = 'Arial';
-      $tam = 8;
+      $tam = 10;
 
 
       $pdf->AddPage();
@@ -238,42 +314,100 @@ class ImpresionController extends Controller
       $pdf->SetFont($font,'',$tam-2);
       //-----------------------------------
       //----------- LISTA PRODUCTOS DETALLE
-      $table=new easyTable($pdf, '{20, 20, 18, 10, 45, 25, 18, 15, 15}', 'align:L; border:{B};');
+
+      $total=0;
+      /*$table=new easyTable($pdf, '{20, 20, 18, 45, 25, 18}', 'align:L; border:{B};');
         $table->rowStyle('font-style:B;');
         $table->easyCell(pinta('F.Cotización'), 'valign:B;border:{B};');
         $table->easyCell(pinta('F.Facturado'), 'valign:B;border:{B};bgcolor:#EBEBEB;');
         $table->easyCell(pinta('Doc.Interno'),'valign:B;border:{B};');
-        $table->easyCell(pinta('Tipo'),'valign:B;border:{B};bgcolor:#EBEBEB;');
+        //$table->easyCell(pinta('Tipo'),'valign:B;border:{B};bgcolor:#EBEBEB;');
         $table->easyCell(pinta('Nombre/Razón Social'),'valign:B');
         $table->easyCell(pinta('Estado'),'valign:B;bgcolor:#EBEBEB;');
         $table->easyCell(pinta('F.Pago'),'valign:B');
         $table->easyCell(pinta('Total'),'valign:B;bgcolor:#EBEBEB;');
-        $table->easyCell(pinta('A cuenta'),'valign:B');
-        $table->easyCell(pinta('Saldo'),'valign:B;bgcolor:#EBEBEB;');
+        //$table->easyCell(pinta('A cuenta'),'valign:B');
+       // $table->easyCell(pinta('Saldo'),'valign:B;bgcolor:#EBEBEB;');
         $table->printRow();
-
+      
         foreach($listaCots as $row){
           $table->rowStyle('border-color:#ADADAD;');
           $table->easyCell(pinta($row->fechacoti), 'align:L;');
           $table->easyCell(pinta($row->fechafact), 'align:L;bgcolor:#EBEBEB;');
           $table->easyCell(pinta($row->docinterno), 'align:L;');
-          $table->easyCell(pinta($row->tipodoc), 'align:L;bgcolor:#EBEBEB;');
+          //$table->easyCell(pinta($row->tipodoc), 'align:L;bgcolor:#EBEBEB;');
           $table->easyCell(pinta($row->nomcompleto), 'align:L;');
           $table->easyCell(pinta($row->descripcion), 'align:L;bgcolor:#EBEBEB;');
           $table->easyCell(pinta($row->formapago), 'align:L;');
-          $table->easyCell(pinta($row->totalcoti), 'align:L;bgcolor:#EBEBEB;');
-          $table->easyCell(pinta($row->pagoacuenta), 'align:L;');
-          $table->easyCell(pinta($row->saldopagar), 'align:L;bgcolor:#EBEBEB;');
+          $table->easyCell(pinta($row->valtotalcont), 'align:L;bgcolor:#EBEBEB;');
+         // $table->easyCell(pinta($row->pagoacuenta), 'align:L;');
+         // $table->easyCell(pinta($row->saldopagar), 'align:L;bgcolor:#EBEBEB;');
           $table->printRow();
+          $total = $total + $row->valtotalcont;
         }
 
       $table->endTable(4);
       //----------- FIN LISTA PRODUCTOS DETALLE
       //-----------------------------------
-
+        
       $pdf->Output();
+      */
 
     }
+    /** Reporte  de ventas por excel */
+    public function exportarexcelAction()
+    {
+      $request     = new Phalcon\Http\Request();
+      $response    = new \Phalcon\Http\Response();
+      $objPHPExcel = new PHPExcel();
+      $objPHPExcel = PHPExcel_IOFactory::load("./files/rptpc.xlsx");
+      $objPHPExcel->setActiveSheetIndex(0);
+
+      $desde    = $request->get('desde');
+      $hasta    = $request->get('hasta');
+      $data     = array($desde,$hasta);
+
+      $jsonData  = json_decode(Venta::listadopedidoscaja($data));
+
+      $index = 4;
+      $i     = 1;
+      $total = 0;
+      foreach ($jsonData->data as $item) {
+          $objPHPExcel->getActiveSheet()->setCellValue('A'.$index, $i++);
+          $objPHPExcel->getActiveSheet()->setCellValue('B'.$index, $item->fechaventa);
+          $objPHPExcel->getActiveSheet()->setCellValue('C'.$index, utf8_decode( $item->cliente));
+          $objPHPExcel->getActiveSheet()->setCellValue('D'.$index, $item->totalventa);
+          $objPHPExcel->getActiveSheet()->setCellValue('E'.$index, $item->estadopagostr);
+          $index++;
+          if($item->estadopagostr!='ANULADO')
+              $total = $total + $item->totalventa;
+      }
+
+
+      $objPHPExcel->getActiveSheet()->setCellValue('C'.$index, 'Total');
+      $objPHPExcel->getActiveSheet()->setCellValue('D'.$index, $total);
+
+      // file name to output
+      $fname = date("Ymd_his") . ".xlsx";
+      // temp file name to save before output
+
+      $temp_file = tempnam(sys_get_temp_dir(), 'phpexcel');
+      //$temp_file = tempnam('/var/www/html', 'phpexcel');
+
+      $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+
+      $objWriter->save($temp_file);
+
+      $response->setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      $response->setHeader('Content-Disposition', 'attachment;filename="' . $fname . '"');
+      $response->setHeader('Cache-Control', 'max-age=0');
+      $response->setHeader('Cache-Control', 'max-age=1');
+      $response->setContent(file_get_contents($temp_file));
+      unlink($temp_file);
+      return $response;
+    }
+    /************************************************************************* */
+
 
     public function reportecuentacorrienteclienteAction(){
       $request        = new Phalcon\Http\Request();

@@ -199,7 +199,7 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizacionesFacturar', {
                     xtype: 'datefield',
                     value: new Date(),
                     reference: 'dfDesdeCotizacionesFactura',
-                    itemId: 'dfDesde',
+                    itemId: 'dfDesdeCotizacionesFactura',
                     width: 100
                 },
                 {
@@ -220,7 +220,7 @@ Ext.define('dinoaccess.view.ventas.ListadoDeCotizacionesFacturar', {
                     xtype: 'datefield',
                     value: new Date(),
                     reference: 'dfHastaCotizacionesFactura',
-                    itemId: 'dfHasta',
+                    itemId: 'dfHastaCotizacionesFactura',
                     width: 100
                 },
                 {

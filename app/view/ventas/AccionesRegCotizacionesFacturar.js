@@ -152,8 +152,8 @@ Ext.define('dinoaccess.view.ventas.AccionesRegCotizacionesFacturar', {
 
     __store.load({
       params: {
-        vDesde: Ext.ComponentQuery.query('#dfDesde')[0].getRawValue(),
-        vHasta: Ext.ComponentQuery.query('#dfHasta')[0].getRawValue()
+        vDesde: Ext.ComponentQuery.query('#dfDesdeCotizacionesFactura')[0].getRawValue(),
+        vHasta: Ext.ComponentQuery.query('#dfHastaCotizacionesFactura')[0].getRawValue()
       }
     });
 
