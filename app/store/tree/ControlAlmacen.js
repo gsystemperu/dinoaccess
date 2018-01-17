@@ -26,14 +26,9 @@ Ext.define('dinoaccess.store.tree.ControlAlmacen', {
       {
         text: 'Ingreso Mercaderia',
         expanded: true,
+        titulo : '',
          children: [
-          {
-            text: 'Orden Compra',
-            leaf: true,
-            itemId: "wContenedorOrdenCompra",
-            titulo: "Orden Compra",
-            glyph: 'xf16b'
-          },
+         
           {
             text: 'Guias Entrada',
             leaf: true,
@@ -46,6 +41,7 @@ Ext.define('dinoaccess.store.tree.ControlAlmacen', {
       {
         text: 'Inventario',
         expanded: true,
+        titulo : '',
          children: [
           {
             text: 'Ajuste inventario',

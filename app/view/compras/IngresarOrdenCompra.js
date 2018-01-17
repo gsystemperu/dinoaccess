@@ -17,6 +17,7 @@ Ext.define('dinoaccess.view.compras.IngresarOrdenCompra', {
         var storeProveedores = Ext.create('dinoaccess.store.Proveedores');
         var storeDetalle     = Ext.create('dinoaccess.store.DetalleOrdenCompra');
         var storeMonedas     = Ext.create('dinoaccess.store.Monedas');
+        storeAlma = Ext.create('dinoaccess.store.Almacenes');
         me = this;
         Ext.applyIf(me, {
             items: [
@@ -133,7 +134,10 @@ Ext.define('dinoaccess.view.compras.IngresarOrdenCompra', {
 
                                                         {
                                                             xtype: 'container',
-                                                            layout: 'hbox',
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align:'streach'
+                                                            },
                                                             padding: '0 0 0 0',
                                                             items: [{
                                                                     xtype: 'label',
@@ -180,7 +184,36 @@ Ext.define('dinoaccess.view.compras.IngresarOrdenCompra', {
                                                                     xtype:'textfield',
                                                                     itemId :'txtNumeroPedido',
                                                                     value : 'OC000000000',
-                                                                    readOnly :true
+                                                                    readOnly :true,
+                                                                    fieldStyle : 'text-align:center;'
+                                                                },
+                                                                {
+                                                                    xtype: 'label',
+                                                                    text: 'Almacen ',
+                                                                    width: 120,
+                                                                    height: 23,
+                                                                    style: {
+                                                                        paddingTop: '3px',
+                                                                        background: '#775c80',
+                                                                        color: 'white',
+                                                                        textAlign: 'center',
+                                                                        fontWeight: 'bold',
+                                                                        fontSize: '15px',
+                                                                        textAlign:'center'
+                                                                    }
+                                                                },
+                                                                {
+                                                                        xtype: 'combo',
+                                                                        itemId: 'cboAlmacenOc',
+                                                                        padding :'0 10 0 0',
+                                                                        store: storeAlma,
+                                                                        valueField: 'id',
+                                                                        displayField: 'descripcion',
+                                                                        queryMode: 'local',
+                                                                        editable: false,
+                                                                        width : 200,
+                                                                        name: 'idalmacen',
+                                                                        allowBlank:false
                                                                 },
                                                                 {
                                                                     xtype: 'checkboxfield',

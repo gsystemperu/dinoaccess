@@ -3,10 +3,13 @@ Ext.define('dinoaccess.store.tree.ControlCompras', {
     root: {
         expanded: true,
         children: [
-            { text: 'Solicitudes Presupuesto', leaf: true, itemId: "RegistroProveedores", titulo: "Registro de Proveedores"  },
-            { text: 'Pedidos de Compra', leaf: true, itemId: "RegistroItem", titulo: "Registro de Items" },
-            { text: 'Proveedores', leaf: true, itemId: "RegistroItem", titulo: "Registro de Items" },
-            { text: 'Productos', leaf: true, itemId: "RegistroItem", titulo: "Registro de Items" },
+            {
+                text: 'Orden Compra',
+                leaf: true,
+                itemId: "wContenedorOrdenCompra",
+                titulo: "Orden Compra",
+                glyph: 'xf0e4'
+              },
             
         ]
 

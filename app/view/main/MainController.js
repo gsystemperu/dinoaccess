@@ -9,7 +9,8 @@ Ext.define('dinoaccess.view.main.MainController', {
     'dinoaccess.store.tree.ControlVentas',
     'dinoaccess.store.tree.Mantenimiento',
     'dinoaccess.store.tree.ControlUsuarios',
-    'dinoaccess.store.tree.ControlManufactura'
+    'dinoaccess.store.tree.ControlManufactura',
+    'dinoaccess.store.tree.ControlCompras'
 
   ],
 
@@ -138,6 +139,10 @@ Ext.define('dinoaccess.view.main.MainController', {
     _ref.treeControlUsuarios.setStore(store);
     var store = Ext.create('dinoaccess.store.tree.ControlManufactura');
     _ref.treeControlManufactura.setStore(store);
+    var store = Ext.create('dinoaccess.store.tree.ControlCompras');
+    _ref.treeControlCompras.setStore(store);
+
+    
 
   },
   onClickOpcionMenu: function (obj, record, item, index, e, eOpts) {

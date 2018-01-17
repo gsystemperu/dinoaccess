@@ -20,7 +20,7 @@ Ext.define('dinoaccess.view.main.Main', {
       region: 'west',
       collapsible: true,
       titleCollapse :false,
-      collapsed:false,
+      collapsed:true,
       title: '::. Dino Access Tecnology .::',
       titleAlign : 'center',
       width: 240,
@@ -51,9 +51,9 @@ Ext.define('dinoaccess.view.main.Main', {
 
 
       }, {
-        title: 'Control de Almacen',
+        title: 'Control Inventario/Almacen',
         itemId: 'panControlAlmacen', //'panGestionCliente',
-        iconCls: 'fa fa-users',
+        iconCls: 'fa fa-university',
         bodyPadding: 0,
         items: [{
           xtype: 'menutree',
@@ -64,13 +64,28 @@ Ext.define('dinoaccess.view.main.Main', {
             itemClick: 'onClickOpcionMenu'
           }
         }]
-
-
+      }, 
+      {
+        title: 'Control Compras',
+        itemId: 'panControlCompras', //'panGestionCliente',
+        iconCls: 'fa fa-american-sign-language-interpreting',
+        bodyPadding: 0,
+        items: [
+          {
+          xtype: 'menutree',
+          reference: 'treeControlCompras', //'treeGestionClientes',
+          layout: 'fit',
+          rootVisible: true,
+          listeners: {
+            itemClick: 'onClickOpcionMenu'
+          }
+          }
+        ]
       }, 
       {
         title: 'Control de Ventas',
         itemId: 'panControlVentas',
-        iconCls: 'fa fa-university',
+        iconCls: 'fa fa-address-card',
         //listeners: [{ expand: 'onExpandPanel' }],
         items: [{
           xtype: 'menutree',
