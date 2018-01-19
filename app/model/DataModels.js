@@ -494,7 +494,9 @@ Ext.define('dinoaccess.model.OrdenCompra', {
         {name: 'totalorden',type: 'float'},
         {name: 'pagoacuenta',type: 'float'},
         {name: 'saldopagar',type: 'float'},
-        {name: 'idmoneda',type: 'integer'}
+        {name: 'idmoneda',type: 'integer'},
+        {name: 'idalmacen',type: 'integer'},
+        {name: 'almacen',type: 'string'}
         
 
     ]

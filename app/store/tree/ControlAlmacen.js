@@ -39,6 +39,21 @@ Ext.define('dinoaccess.store.tree.ControlAlmacen', {
         ]
       },
       {
+        text: 'Salida Mercaderia',
+        expanded: true,
+        titulo : '',
+         children: [
+         
+          {
+            text: 'Guias Internas',
+            leaf: true,
+            itemId: "wContenedorGuiasInternas",
+            titulo: "Distribucion",
+            glyph: 'xf16b'
+          }
+        ]
+      },
+      {
         text: 'Inventario',
         expanded: true,
         titulo : '',

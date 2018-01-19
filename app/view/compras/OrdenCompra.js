@@ -155,24 +155,7 @@ Ext.define('dinoaccess.view.compras.OrdenCompra', {
           tooltip: 'Formulario de proveedor',
           handler: 'onClickFormularioProveedor',
           control: 'cboProveedores'
-        },
-        {
-          xtype: 'label',
-          text: 'Filtro',
-          padding: '5px 0 0 0',
-          border: true,
-          width: 100,
-          height: 25,
-          style: {
-            background: '#775c80',
-            color: 'white',
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: '13px'
-          }
-        },
-       
-
+        }
       ]
     };
 
@@ -207,20 +190,40 @@ Ext.define('dinoaccess.view.compras.OrdenCompra', {
         {
           text: 'Nombre / Razon Social',
           dataIndex: 'razonsocial',
-          flex: 4
+          flex: 2
+        },
+        {
+          text: 'Almacen',
+          dataIndex: 'almacen',
+          flex: 1.5
         },
        {
           text: 'Estado',
           dataIndex: 'estado',
           flex: 1.5,
-          renderer:function(value,style){
-              if(value == 'OC ANULADA'){
-                  return '<strong style="color:red">'+value+'</strong>';
-              }else{
-                return value;
-              }
+          renderer:function(value, metaData, record){
+            if(record.data.idestado == 1){
+              metaData.style = "color:#ffffff;font-Size:12px;background-color:#adadad";
+              return value;
+            }
+            if(record.data.idestado == 2){
+              metaData.style = "color:#ffffff;font-Size:12px;background-color:#5f7c8a";
+              return value;
+            }
+            if(record.data.idestado == 3){ // Completado
+              metaData.style = "color:#ffffff;font-Size:12px;background-color:#85687D";
+              return value;
+            }
+            if(record.data.idestado == 4){ // anulado
+              metaData.style = "color:#ffffff;font-Size:12px;background-color:#8A0829";
+              return value;
+            }
           }
         },
+
+       
+
+
         {
           xtype:'numbercolumn',
           text: 'Total',
@@ -237,6 +240,7 @@ Ext.define('dinoaccess.view.compras.OrdenCompra', {
           flex: 1,
           align : 'right',
           format:'0.00',
+          hidden:true
           
         },
         {
@@ -247,6 +251,7 @@ Ext.define('dinoaccess.view.compras.OrdenCompra', {
           flex: 1,
           align : 'right',
           format:'0.00',
+          hidden:true,
           renderer : function(value,style,record){
 
             if(record.get('pagoacuenta') == 0){
@@ -260,6 +265,7 @@ Ext.define('dinoaccess.view.compras.OrdenCompra', {
         {
           xtype: 'widgetcolumn',
           width: 60,
+          hidden:true,
           widget: {
             xtype: 'button',
             width: 60,

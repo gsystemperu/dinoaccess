@@ -1,21 +1,20 @@
-Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
+Ext.define('dinoaccess.view.almacen.IngresarGuiaInterna',{
     extend: 'Ext.panel.Panel',
-    xtype: 'weditarordencompra',
+    xtype :'wIngresarGuiaInterna',
     requires: [
         'Ext.grid.plugin.*',
-        'dinoaccess.view.compras.AccionesOrdenCompraEditar',
+        'dinoaccess.view.almacen.IngresarGuiaInternaController',
         'dinoaccess.util.Rutas'
     ],
-    itemId: 'weditarordencompra',
-    bodyPadding: 5,
-    controller: 'acciones-ordencompraeditar',
+    padding: 10,
+    controller: 'almacen-ingresarguiainterna',
     initComponent: function () {
         var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
             clicksToMoveEditor: 1,
             autoCancel: false
         });
         var storeProveedores = Ext.create('dinoaccess.store.Proveedores');
-        var storeDetalle = Ext.create('dinoaccess.store.DetalleOrdenCompra');
+        var storeDetalle     = Ext.create('dinoaccess.store.DetalleOrdenCompra');
         var storeMonedas     = Ext.create('dinoaccess.store.Monedas');
         storeAlma = Ext.create('dinoaccess.store.Almacenes');
         me = this;
@@ -23,9 +22,9 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
             items: [
                 {
                     xtype: "form",
-                    itemId: 'frmOrdenCompraEditar',
-                    reference: 'frmOrdenCompraEditar',
-                    url: dinoaccess.util.Rutas.ordenCompraEditar,
+                    itemId: 'frmOrdenCompra',
+                    reference: 'frmOrdenCompra',
+                    url: dinoaccess.util.Rutas.ordenCompraGuardar,
                     items: [{
                             xtype: 'panel',
                             flex: 1,
@@ -33,19 +32,19 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                             border: false,
                             items: [{
                                     xtype: 'hiddenfield',
-                                    itemId: 'txtJsonDetalleOCEditar',
+                                    itemId: 'txtJsonDetalleOC',
                                     name: 'vjsondetalle'
                                 },
                                 {
                                     xtype: 'hiddenfield',
-                                    name: 'id',
-                                    itemId: 'id',
+                                    name: 'vid',
+                                    itemId: 'vid',
                                     value: 0
                                 },
                                 {
                                     xtype: 'fieldset',
                                     defaultType: 'textfield',
-                                    title: 'Proveedor',
+                                    title: 'Almacen de Origen',
                                     layout: 'fit',
                                     items: [{
                                             xtype: 'container',
@@ -56,36 +55,20 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                                 allowBlank: false
                                             },
                                             items: [
-                                                /*{
-                                                    xtype: 'hiddenfield',
-                                                    itemId: 'txtProveedorId',
-                                                    name: 'vidProveedor'
-                                                },
-                                                {
-                                                    xtype: 'textfield',
-                                                    fieldLabel: 'Razon Social',
-                                                    itemId: 'txtDatosProveedor',
-                                                    flex: 2,
-                                                    fieldStyle: 'text-transform:uppercase',
-                                                    labelWidth: 100,
-                                                    allowBlank: false,
-                                                    editable: false
-
-                                                },*/
                                                 {
                                                     xtype: 'combo',
-                                                    fieldLabel: 'Razon Social',
-                                                    itemId: 'cboProveedoresfEditar',
-                                                    store: storeProveedores,
+                                                    itemId: 'cboAlmacenOc',
+                                                    padding :'0 10 0 0',
+                                                    store: storeAlma,
                                                     valueField: 'id',
-                                                    displayField: 'razonsocial',
+                                                    displayField: 'descripcion',
                                                     queryMode: 'local',
-                                                    flex: 2,
                                                     editable: false,
-                                                    name: 'idprov'
-
-
-                                                },
+                                                    width : 200,
+                                                    name: 'idalmacenorigen',
+                                                    allowBlank:false,
+                                                    flex: 2
+                                               },
                                                 {
                                                     xtype: 'button',
                                                     glyph: dinoaccess.util.Glyphs.getGlyph('nuevo'),
@@ -93,26 +76,22 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                                     control: 'cboProveedoresf'
                                                 },
                                                 {
+                                                    xtype: 'button',
+                                                    glyph: dinoaccess.util.Glyphs.getGlyph('refrescar'),
+                                                    handler: 'onClickRefrescarProveedor',
+                                                },
+                                                {
                                                     xtype: 'datefield',
-                                                    fieldLabel: 'Fecha Pedido',
+                                                    fieldLabel: 'Fecha Envio',
                                                     value: new Date(),
                                                     labelAlign: 'right',
                                                     flex: 1,
-                                                    name: 'fecha',
-                                                   
-                                                },
-                                                {
-                                                    xtype: 'combo',
-                                                    fieldLabel: 'Moneda',
-                                                    labelAlign : 'right',
-                                                    store :storeMonedas,
-                                                    queryMode    : 'local',
-                                                    valueField   : 'id',
-                                                    displayField : 'descripcion',
-                                                    value        : 1,
-                                                    editable     : false,
-                                                    name         : 'idmoneda' 
+                                                    name: 'vfecha',
+                                                    format: 'd/m/Y',
+                                                    readOnly:true
+
                                                 }
+                                               
 
                                             ]
                                         },
@@ -121,8 +100,50 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                 },
                                 {
                                     xtype: 'fieldset',
+                                    defaultType: 'textfield',
+                                    title: 'Almacen de Destino',
+                                    layout: 'fit',
+                                    items: [{
+                                            xtype: 'container',
+                                            layout: 'hbox',
+                                            margin: '0 0 5 6',
+                                            columnWidth: 0.5,
+                                            defaults: {
+                                                allowBlank: false
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'combo',
+                                                    padding :'0 10 0 0',
+                                                    store: storeAlma,
+                                                    valueField: 'id',
+                                                    displayField: 'descripcion',
+                                                    queryMode: 'local',
+                                                    editable: false,
+                                                    name: 'idalmacendestino',
+                                                    allowBlank:false,
+                                                    flex : 2
+                                               },
+                                                {
+                                                    xtype: 'button',
+                                                    glyph: dinoaccess.util.Glyphs.getGlyph('nuevo'),
+                                                    handler: 'onClickFormularioProveedor',
+                                                    control: 'cboProveedoresf'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    glyph: dinoaccess.util.Glyphs.getGlyph('refrescar'),
+                                                    handler: 'onClickRefrescarProveedor',
+                                                }
+                                            ]
+                                        },
+
+                                    ]
+                                },
+                                {
+                                    xtype: 'fieldset',
                                     columnWidth: 0.1,
-                                    title: 'Detalle',
+                                    title: 'Detalle del Envio',
                                     defaultType: 'textfield',
                                     items: [{
                                             xtype: 'container',
@@ -140,7 +161,10 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
 
                                                         {
                                                             xtype: 'container',
-                                                            layout: 'hbox',
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align:'streach'
+                                                            },
                                                             padding: '0 0 0 0',
                                                             items: [{
                                                                     xtype: 'label',
@@ -160,73 +184,9 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                                                     xtype: 'button',
                                                                     // text: 'Buscar Producto',
                                                                     glyph: dinoaccess.util.Glyphs.getGlyph('buscar'),
-                                                                    handler: 'onClickBuscarProductoEditar'
-
-                                                                },
-                                                                {
-                                                                    xtype: 'container',
-                                                                    width: 20
-                                                                },
-
-                                                                {
-                                                                    xtype: 'label',
-                                                                    text: 'NRO° ORDEN COMPRA ',
-                                                                    width: 210,
-                                                                    height: 23,
-                                                                    style: {
-                                                                        paddingTop: '3px',
-                                                                        background: '#775c80',
-                                                                        color: 'white',
-                                                                        textAlign: 'center',
-                                                                        fontWeight: 'bold',
-                                                                        fontSize: '15px'
-                                                                    }
-                                                                },
-                                                                {
-                                                                    xtype:'textfield',
-                                                                    itemId :'txtNumeroPedido',
-                                                                    name : 'occodigo',
-                                                                    readOnly :true,
-                                                                    fieldStyle : 'text-align:center;font-size:13px;'
-                                                                },
-                                                                {
-                                                                    xtype: 'label',
-                                                                    text: 'Almacen ',
-                                                                    width: 120,
-                                                                    height: 23,
-                                                                    style: {
-                                                                        paddingTop: '3px',
-                                                                        background: '#775c80',
-                                                                        color: 'white',
-                                                                        textAlign: 'center',
-                                                                        fontWeight: 'bold',
-                                                                        fontSize: '15px',
-                                                                        textAlign:'center'
-                                                                    }
-                                                                },
-                                                                {
-                                                                        xtype: 'combo',
-                                                                        itemId: 'cboAlmacenOc',
-                                                                        padding :'0 10 0 0',
-                                                                        store: storeAlma,
-                                                                        valueField: 'id',
-                                                                        displayField: 'descripcion',
-                                                                        queryMode: 'local',
-                                                                        editable: false,
-                                                                        width : 200,
-                                                                        name: 'idalmacen',
-                                                                        allowBlank:false
-                                                                },
-                                                                {
-                                                                    xtype: 'checkboxfield',
-                                                                    boxLabel: '<b>El Precio incluye I.G.V</b>',
-                                                                    name: "flagestadoigv",
-                                                                    itemId : 'ckbAplicarIgvEditar',
-                                                                    hidden:true
-                                                                    //value : true
+                                                                    handler: 'onClickBuscarProducto'
 
                                                                 }
-
                                                             ]
                                                         }
                                                     ]
@@ -241,8 +201,8 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                             items: [{
                                                 xtype: 'grid',
                                                 flex: 1,
-                                                itemId: 'dgvDetalleOrdenCompraEditar',
-                                                reference: 'dgvDetalleOrdenCompraEditar',
+                                                itemId: 'dgvDetalleGuiaInterna',
+                                                reference: 'dgvDetalleGuiaInterna',
                                                 store: storeDetalle,
                                                 plugins: [rowEditing],
                                                 selModel: 'cellmodel',
@@ -250,7 +210,8 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                                     ptype: 'cellediting',
                                                     clicksToEdit: 1
                                                 },
-                                                columns: [{
+                                                columns: [
+                                                   {
                                                         text: 'Producto',
                                                         dataIndex: 'producto',
                                                         flex: 1.8
@@ -272,7 +233,6 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                                         }
                                                     },
                                                     {
-
                                                         xtype:'numbercolumn',
                                                         text: 'Precio Compra',
                                                         dataIndex: 'precio',
@@ -286,7 +246,6 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                                         }
                                                     },
                                                     {
-
                                                         xtype:'numbercolumn',
                                                         text: 'Total',
                                                         dataIndex: 'total',
@@ -303,7 +262,7 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                                             width: 24,
                                                             glyph: 0xf014,
                                                             listeners: {
-                                                                click: 'onClickEliminarDetalleEditar'
+                                                                click: 'onClickEliminarDetalle'
                                                             }
                                                         }
 
@@ -314,7 +273,7 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                                 cls: '',
                                                 height: 300,
                                                 listeners: {
-                                                    edit: 'onEditorCalcularTotalOrdenCompraEditar'
+                                                    edit: 'onEditorCalcularTotalOrdenCompra'
                                                 }
 
                                             }]
@@ -336,23 +295,21 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                             padding: '0 0 15 0',
                                             items: [{
                                                     xtype: 'textfield',
-                                                    itemId: 'txtSubtotalOrdenCompraEditar',
+                                                    itemId: 'txtSubtotalOrdenCompra',
                                                     name: 'subtotal',
-                                                    value: "0.00",
                                                     fieldLabel: '<b>Sub Total</b>',
-                                                    decimalPrecision: 2,
-                                                    minValue: 0,
-                                                    step: 0.01,
+                                                    value: "0.00",
                                                     readOnly: true,
                                                     width: 280,
                                                     labelWidth: 120,
                                                     fieldStyle: 'text-align: right;font-size:16px;',
-                                                    labelAlign :'right'
+                                                    labelAlign :'right',
+                                                    labelStyle : 'font-size:16px;'
                                                 },
                                                 {
                                                     xtype: 'textfield',
                                                     fieldLabel: '<b>I.g.v.  </b>',
-                                                    itemId: 'txtIgvOrdenCompraEditar',
+                                                    itemId: 'txtIgvOrdenCompra',
                                                     name: 'igv',
                                                     value: "0.00",
                                                     minValue: 0,
@@ -360,19 +317,22 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
                                                     width: 280,
                                                     labelWidth: 120,
                                                     fieldStyle: 'text-align: right;font-size:16px;',
-                                                    labelAlign :'right'
+                                                    labelAlign :'right',
+                                                    labelStyle : 'font-size:16px;'
                                                 },
                                                 {
                                                     xtype: 'textfield',
                                                     fieldLabel: '<b>Total General </b>',
-                                                    itemId: 'txtTotalGeneralOrdenCompraEditar',
+                                                    itemId: 'txtTotalGeneralOrdenCompra',
                                                     value: "0.00",
                                                     name: 'totalgeneral',
+                                                    minValue: 0,
                                                     readOnly: true,
                                                     width: 280,
                                                     labelWidth: 120,
                                                     fieldStyle: 'text-align: right;font-size:16px;',
-                                                    labelAlign :'right'
+                                                    labelAlign :'right',
+                                                    labelStyle : 'font-size:16px;'
                                                 }
                                             ]
                                         }
@@ -414,10 +374,6 @@ Ext.define('dinoaccess.view.compras.EditarOrdenCompra', {
 
             ]
         });
-
         me.callParent(arguments);
-
-
-
     }
 });

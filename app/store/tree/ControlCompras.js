@@ -9,8 +9,8 @@ Ext.define('dinoaccess.store.tree.ControlCompras', {
                 itemId: "wContenedorOrdenCompra",
                 titulo: "Orden Compra",
                 glyph: 'xf0e4'
-              },
-            
+            }
+        
         ]
 
 

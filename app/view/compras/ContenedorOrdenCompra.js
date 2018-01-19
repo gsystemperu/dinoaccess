@@ -50,7 +50,7 @@ Ext.define('dinoaccess.view.compras.ContenedorOrdenCompra', {
       }, 
       {
         xtype:'button',
-        text :'CONFIRMAR ORDEN',
+        text :'CONFIRMAR ORDEN Y ALMACENAR',
         handler:'onClickConfirmarOrdenCompra'
       }
 

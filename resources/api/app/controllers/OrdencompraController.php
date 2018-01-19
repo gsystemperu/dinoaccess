@@ -18,7 +18,8 @@ class OrdencompraController extends Controller
                     $request->getPost('vfecha'),
                     ($request->getPost('flagestadoigv')==''?0:1),
                     $request->getPost('vjsondetalle'),
-                    $request->getPost('idmoneda')
+                    $request->getPost('idmoneda'),
+                    $request->getPost('idalmacen')
              );
 
               $jsonData = OrdenCompra::actualizar($data);
@@ -43,7 +44,8 @@ class OrdencompraController extends Controller
                     $request->getPost('fecha'),
                     ($request->getPost('flagestadoigv')==''?0:1),
                     $request->getPost('vjsondetalle'),
-                    $request->getPost('idmoneda')
+                    $request->getPost('idmoneda'),
+                    $request->getPost('idalmacen')
              );
              //print_r($data);die();
                $jsonData = OrdenCompra::actualizar($data);
