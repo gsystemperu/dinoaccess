@@ -36,6 +36,7 @@ Ext.define('dinoaccess.Application', {
         'almacen.wContenedorGuiasInternas',
         'almacen.GuiasInternas',
         'almacen.IngresarGuiaInterna',
+        'almacen.ProductoBuscarGI',
 
         'ventas.ContenedorCotizaciones',
         'ventas.ContenedorCliente',

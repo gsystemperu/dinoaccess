@@ -57,7 +57,7 @@ Ext.define('dinoaccess.view.almacen.IngresarGuiaInterna',{
                                             items: [
                                                 {
                                                     xtype: 'combo',
-                                                    itemId: 'cboAlmacenOc',
+                                                    reference: 'cboAlmacenOc',
                                                     padding :'0 10 0 0',
                                                     store: storeAlma,
                                                     valueField: 'id',
@@ -169,7 +169,7 @@ Ext.define('dinoaccess.view.almacen.IngresarGuiaInterna',{
                                                             items: [{
                                                                     xtype: 'label',
                                                                     text: 'Producto',
-                                                                    width: 80,
+                                                                    width: 100,
                                                                     height: 23,
                                                                     style: {
                                                                         paddingTop: '3px',
@@ -182,7 +182,6 @@ Ext.define('dinoaccess.view.almacen.IngresarGuiaInterna',{
                                                                 },
                                                                 {
                                                                     xtype: 'button',
-                                                                    // text: 'Buscar Producto',
                                                                     glyph: dinoaccess.util.Glyphs.getGlyph('buscar'),
                                                                     handler: 'onClickBuscarProducto'
 
