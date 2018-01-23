@@ -52,7 +52,6 @@ class OrdenCompra extends \Phalcon\Mvc\Model
     {
         $obj     = new SQLHelpers();
         $param   = $data;
-        //print_r($data);die();
         $sql     =  $obj->executarJson('compras','sp_orden_compra_confirmada_listar',$param);
         return $sql;
     }
